@@ -18,14 +18,15 @@ The project uses the following:
 For additional information on project specifications, see ```backend/Pipfile``` for the backend server and ```frontend/package.json``` for the frontend respectively.
 
 ### PostgreSQL
-The ```frontend``` directory must also have a ```.env``` file with the following configurations. It is highly recommended to use your own credentials instead of the values provided:
+The ```postgres``` directory must also have a ```.env``` file with the following configurations. It is highly recommended to use your own credentials instead of the values provided:
 ```
-REACT_APP_API_URL=http://localhost
+POSTGRES_DB=jokester
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
 ```
 
 ### Backend
 In the ```backend``` directory, create a ```.env``` file that contains the following configurations:
-
 ```
 SECRET_KEY=somerandomstring
 
