@@ -15,13 +15,16 @@ The project uses the following:
 - Docker
 - Docker Compose
 
-For additional information on project specifications, see 
-```backend/Pipfile``` for the backend server and 
-```frontend/package.json``` for the frontend respectively.
+For additional information on project specifications, see ```backend/Pipfile``` for the backend server and ```frontend/package.json``` for the frontend respectively.
+
+### PostgreSQL
+The ```frontend``` directory must also have a ```.env``` file with the following configurations. It is highly recommended to use your own credentials instead of the values provided:
+```
+REACT_APP_API_URL=http://localhost
+```
 
 ### Backend
-In the ```backend``` directory, create a ```.env``` file 
-that contains the following environment variables:
+In the ```backend``` directory, create a ```.env``` file that contains the following configurations:
 
 ```
 SECRET_KEY=somerandomstring
@@ -40,37 +43,26 @@ DB_PORT=5432
 REDIS_URL=redis://redis:6379/0
 ```
 
-The database variables can be changed as desired. 
-However, make sure to update the environment variables in 
-```docker-compose.yml``` as well.
+The database variables can be changed as desired. However, make sure to update the environment variables in ```docker-compose.yml``` as well.
 
-The email configurations can also be configured. 
-For more information, see the Django 3.2 documentation.
+The email configurations can also be configured. For more information, see the Django 3.2 documentation.
 
 ### Frontend
-The ```frontend``` directory must also have a ```.env``` file 
-with the following variables:
+The ```frontend``` directory must also have a ```.env``` file with the following configurations:
 ```
 REACT_APP_API_URL=http://localhost
 ```
 The URL should be the endpoint of the backend server.
 
 ## Building
-The project uses Docker. Ensure Docker and Docker Compose are installed 
-before continuing.
+The project uses Docker. Ensure Docker and Docker Compose are installed before continuing.
 
 To build, run ```docker compose build```
 
-
 ## Running
-To run the web app, run ```docker compose up -d```, then 
-go to http://localhost using your web browser.
-
+To run the web app, run ```docker compose up -d```, then go to http://localhost using your web browser.
 
 ## Populating the Database
-This project provides data to use for the project.
-Populating the database should only be done once to avoid duplicate data. 
-To do so, run ```docker exec -it backend python manage.py loaddata data.json```.
+This project provides data to use for the project. Populating the database should only be done once to avoid duplicate data. To do so, run ```docker exec -it backend python manage.py loaddata data.json```.
 
-To create a staff user, run ```docker exec -it backend python manage.py createsuperuser```
-and fill out the fields in the prompt.
+To create a staff user, run ```docker exec -it backend python manage.py createsuperuser``` and fill out the fields in the prompt.
