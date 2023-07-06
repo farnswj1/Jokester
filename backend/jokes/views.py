@@ -1,5 +1,7 @@
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import SAFE_METHODS
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from jokes.serializers import JokeSerializer, AddJokeSerializer, JokeListSerializer
 from jokes.permissions import IsAuthor
 from jokes.filters import JokeFilterSet
@@ -32,3 +34,13 @@ class JokeDetailAPIView(RetrieveUpdateDestroyAPIView):
             permission_classes.append(IsAuthor())
 
         return permission_classes
+
+
+class RandomJokeAPIView(APIView):
+    def get_queryset(self):
+        return Joke.objects.order_by('?')
+
+    def get(self, request, format=None):
+        joke = self.get_queryset().first()
+        serializer = JokeSerializer(joke)
+        return Response(serializer.data)

@@ -14,7 +14,7 @@ const Header: FC = () => {
             <Link to="/">Jokes API</Link>
           </Typography>
           <Typography sx={{ mr: 3 }}>
-            <Link to="/random">Random</Link>
+            <Link to="/jokes/random">Random</Link>
           </Typography>
           <Typography sx={{ mr: 3 }}>
             <Link to="/about">About</Link>

@@ -41,16 +41,15 @@ const HomePage: FC = () => {
       });
   };
 
-  useEffect(() => getJokesList('/api/jokes/'), []);
+  useEffect(() => getJokesList('/api/jokes/all/'), []);
 
   const handleSearchSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     const query = new URLSearchParams(data as any).toString();
-    getJokesList(`/api/blog/?${query}`);
+    getJokesList(`/api/jokes/all/?${query}`);
   }
 
   const isStaff = user?.hasGroup('Administrators');
@@ -66,7 +65,7 @@ const HomePage: FC = () => {
         </Box>
         {
           isStaff && (
-            <Link to="/new">
+            <Link to="/jokes/new">
               <Button variant="contained" sx={{ mb: 3 }}>
                 Add New Joke
               </Button>

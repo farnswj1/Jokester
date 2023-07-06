@@ -75,7 +75,12 @@ const LoginPage: FC = () => {
               required
             />
           </FormControl>
-          <Button variant="contained" type="submit" size="large">
+          <Button
+            variant="contained"
+            type="submit"
+            size="large"
+            disabled={isLoading}
+          >
             Login
           </Button>
         </Box>

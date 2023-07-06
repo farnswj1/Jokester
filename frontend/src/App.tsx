@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from 'auth';
 import { Header, Footer } from 'layouts';
 import Routes from 'routes';
-import 'assets/scss/App.scss';
 
 const App: React.FC = () => {
   const theme = createTheme({

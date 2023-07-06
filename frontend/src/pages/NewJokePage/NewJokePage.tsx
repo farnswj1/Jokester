@@ -9,7 +9,6 @@ import {
   Button
 } from '@mui/material';
 import { APIService } from 'services';
-import { useAuth } from 'hooks';
 import { setTitle } from 'utils';
 
 const NewJokePage: FC = () => {
@@ -30,6 +29,9 @@ const NewJokePage: FC = () => {
       })
       .catch(({ response }) => {
         setStatus(response.status);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -63,7 +65,12 @@ const NewJokePage: FC = () => {
               required
             />
             </FormControl>
-            <Button variant="contained" type="submit" size="large">
+            <Button
+              variant="contained"
+              type="submit"
+              size="large"
+              disabled={isLoading}
+            >
               Submit
             </Button>
           </Box>

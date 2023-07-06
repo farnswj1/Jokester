@@ -18,7 +18,7 @@ const JokeDetailPage: FC = () => {
   const getJoke = () => {
     setIsLoading(true);
 
-    APIService.get(`/apijokes/${id}/`)
+    APIService.get(`/api/jokes/${id}/`)
       .then(({ data, status }) => {
         setStatus(status);
         setJoke(data);
@@ -48,7 +48,7 @@ const JokeDetailPage: FC = () => {
     }
   };
 
-  useEffect(getJoke, []);
+  useEffect(getJoke, [id]);
 
   const isStaff = user?.is_staff;
 

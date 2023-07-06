@@ -22,7 +22,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     TokenHandler.delete();
-    navigate('/login');
+    // navigate('/');
   };
 
   const values = {
