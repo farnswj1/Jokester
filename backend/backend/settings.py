@@ -26,10 +26,10 @@ USE_X_FORWARDED_PORT = True
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = strtobool(os.environ.get('DEBUG').lower())
+DEBUG = strtobool(os.getenv('DEBUG').lower())
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split()
 CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -103,11 +103,11 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': os.environ.get('REDIS_URL')
+        'LOCATION': os.getenv('REDIS_URL')
     }
 }
 
-CELERY_BROKER_URL = os.environ.get('REDIS_URL')
+CELERY_BROKER_URL = os.getenv('REDIS_URL')
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
