@@ -1,0 +1,69 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    restart: always
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/:rw
+  redis:
+    container_name: redis
+    image: redis:7
+    restart: always
+    volumes:
+      - redis_data:/data/:rw
+  backend:
+    container_name: backend
+    image: backend
+    build: backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    volumes:
+      - backend_static:/opt/app/static/:rw
+    depends_on:
+      - postgres
+      - redis
+  frontend:
+    container_name: frontend
+    image: frontend
+    build: frontend
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - frontend_static:/opt/app/build/:rw
+    depends_on:
+      - backend
+  nginx:
+    container_name: nginx
+    image: nginx:1.23-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - certbot_data:/var/www/certbot/:ro
+      - ssl_certs:/etc/letsencrypt/:ro
+      - backend_static:/opt/backend/static/:ro
+      - frontend_static:/opt/frontend/static/:ro
+    depends_on:
+      - frontend
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    volumes:
+      - ./certbot/cli.ini:/etc/letsencrypt/cli.ini:ro
+      - certbot_data:/var/www/certbot/:rw
+      - ssl_certs:/etc/letsencrypt/:rw
+    depends_on:
+      - nginx
+volumes:
+  postgres_data:
+  redis_data:
+  backend_static:
+  frontend_static:
+  certbot_data:
+  ssl_certs:
