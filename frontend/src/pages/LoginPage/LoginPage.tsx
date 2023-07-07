@@ -20,6 +20,7 @@ const LoginPage: FC = () => {
   const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    setStatus(null);
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
@@ -47,14 +48,14 @@ const LoginPage: FC = () => {
           <FormControl fullWidth variant="outlined">
             {
               status === 401 && (
-                <Typography sx={{ mb: 3 }}>
+                <Typography sx={{ mb: 3, color: 'red' }}>
                   Please enter a valid username and password.
                 </Typography>
               )
             }
             {
               (status && status >= 500) && (
-                <Typography sx={{ mb: 3 }}>
+                <Typography sx={{ mb: 3, color: 'red' }}>
                   There was an error with the server!
                 </Typography>
               )

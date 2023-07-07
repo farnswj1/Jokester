@@ -12,6 +12,7 @@ const RandomJokePage: FC = () => {
 
   const getRandomJoke = () => {
     setIsLoading(true);
+    setStatus(null);
 
     APIService.get('/api/jokes/random/')
       .then(({ data, status }) => {
@@ -35,7 +36,7 @@ const RandomJokePage: FC = () => {
         isLoading ? (
           <LinearProgress color="inherit" />
         ) : status && status >= 500 ? (
-          <Typography variant="h5">
+          <Typography variant="h5" sx={{ color: 'red' }}>
             There was an error with the server.
           </Typography>
         ) : (

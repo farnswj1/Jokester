@@ -19,16 +19,17 @@ const HomePage: FC = () => {
 
   const getJokesList = (url: string) => {
     setIsLoading(true);
+    setStatus(null);
 
     APIService.get(url)
       .then(({ data, status }) => {
         setStatus(status);
         return data;
       })
-      .then(({ results, previousPage, nextPage }) => {
+      .then(({ results, previous, next }) => {
         setJokes(results);
-        setPreviousPage(previousPage);
-        setNextPage(nextPage);
+        setPreviousPage(previous);
+        setNextPage(next);
       })
       .catch(({ response }) => {
         setJokes(null);
@@ -76,7 +77,7 @@ const HomePage: FC = () => {
           isLoading ? (
             <LinearProgress color="inherit" />
           ) : status && status >= 500 ? (
-            <Typography variant="h5">
+            <Typography variant="h5" sx={{ color: 'red' }}>
               There was an error with the server.
             </Typography>
           ) : jokes?.length === 0 ? (

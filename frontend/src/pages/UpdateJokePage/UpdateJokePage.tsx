@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { APIService } from 'services';
 import { setTitle } from 'utils';
-import { useAuth } from 'hooks';
 import { Joke } from 'types';
 
 const UpdateJokePage: FC = () => {
@@ -19,13 +18,13 @@ const UpdateJokePage: FC = () => {
   const [status, setStatus] = useState<number | null>(null);
   const [joke, setJoke] = useState<Joke | null>(null);
   const { id } = useParams();
-  const { user} = useAuth();
+  const navigate = useNavigate();
   setTitle(`Update Joke ${id}`);
 
   const getJoke = () => {
     setIsLoading(true);
 
-    APIService.get(`/api/jokes/${id}`)
+    APIService.get(`/api/jokes/${id}/`)
       .then(({ data, status }) => {
         setStatus(status);
         setJoke(data);
@@ -42,22 +41,25 @@ const UpdateJokePage: FC = () => {
   const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    setStatus(null);
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     
-    APIService.put(`jokes/${id}/update`, data)
+    APIService.put(`/api/jokes/${id}/`, data)
       .then(({ status }) => {
         setStatus(status);
+        navigate(`/jokes/${id}`);
       })
       .catch(({ response }) => {
         setStatus(response.status);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
-  useEffect(getJoke, []);
-
-  const isStaff = user?.is_staff;
+  useEffect(getJoke, [id]);
 
   if (isLoading) {
     return <LinearProgress color="inherit" />;
@@ -73,7 +75,7 @@ const UpdateJokePage: FC = () => {
           <FormControl fullWidth variant="outlined">
             {
               status === 400 && (
-                <Typography sx={{ mb: 3 }}>
+                <Typography sx={{ mb: 3, color: 'red' }}>
                   Please double check your inputs.
                 </Typography>
               )
@@ -100,7 +102,7 @@ const UpdateJokePage: FC = () => {
           <Button variant="contained" type="submit" size="large">
             Submit
           </Button>
-          </Box>
+        </Box>
       </Grid>
     </Grid>
   );

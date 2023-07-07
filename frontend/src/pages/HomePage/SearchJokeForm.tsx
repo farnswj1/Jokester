@@ -7,7 +7,7 @@ interface SearchJokeFormProps {
 }
 
 const SearchJokeForm: FC<SearchJokeFormProps> = ({ handleSubmit }) => (
-  <Box component="form" onSubmit={() => handleSubmit()}>
+  <Box component="form" onSubmit={(event) => handleSubmit(event)}>
     <FormControl fullWidth variant="outlined">
       <TextField
         id="title"

@@ -17,6 +17,7 @@ const JokeDetailPage: FC = () => {
 
   const getJoke = () => {
     setIsLoading(true);
+    setStatus(null);
 
     APIService.get(`/api/jokes/${id}/`)
       .then(({ data, status }) => {
@@ -34,7 +35,7 @@ const JokeDetailPage: FC = () => {
 
   const deleteJoke = () => {
     if (window.confirm("Are you sure you want to delete this joke?")) {
-      APIService.delete(`/api/jokes/${id}/delete/`)
+      APIService.delete(`/api/jokes/${id}/`)
         .then(({ status }) => {
           setStatus(status);
           navigate('/');
@@ -58,7 +59,7 @@ const JokeDetailPage: FC = () => {
         isLoading ? (
           <LinearProgress color="inherit" />
         ) : status && status >= 500 ? (
-          <Typography variant="h5">
+          <Typography variant="h5" sx={{ color: 'red' }}>
             There was an error with the server.
           </Typography>
         ) : (
@@ -77,7 +78,7 @@ const JokeDetailPage: FC = () => {
               isStaff && (
                 <ButtonGroup sx={{ mt: 5 }} variant="contained">
                   <Button size="large">
-                    <Link to={`/${joke?.id}/update`}>
+                    <Link to={`/jokes/${joke?.id}/update`}>
                       Update
                     </Link>
                   </Button>
