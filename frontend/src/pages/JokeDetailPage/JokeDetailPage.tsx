@@ -21,7 +21,7 @@ const JokeDetailPage: FC = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const isStaff = user?.is_staff;
+  const hasPermission = user?.hasGroup('Administrators');
   setTitle(joke ? joke.title : `Joke #${id}`);
 
   const handleOpenDeleteModal = () => setOpenDeleteModal(true);
@@ -46,6 +46,10 @@ const JokeDetailPage: FC = () => {
   };
 
   const deleteJoke = () => {
+    setIsLoading(true);
+    setStatus(null);
+    setJoke(null);
+
     APIService.delete(`/api/jokes/${id}/`)
       .then(({ status }) => {
         setStatus(status);
@@ -85,10 +89,10 @@ const JokeDetailPage: FC = () => {
           </Link>
         </Button>
         {
-          isStaff && (
+          (joke && hasPermission) && (
             <Fragment>
               <Button size="large">
-                <Link to={`/jokes/${joke?.id}/update`}>
+                <Link to={`/jokes/${joke.id}/update`}>
                   Update
                 </Link>
               </Button>

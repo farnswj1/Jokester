@@ -8,7 +8,8 @@ import {
   NewJokePage,
   PageNotFoundPage,
   RandomJokePage,
-  UpdateJokePage
+  UpdateJokePage,
+  UserProfilePage
 } from 'pages';
 
 const Routes: FC = () => (
@@ -40,6 +41,10 @@ const Routes: FC = () => (
     <Route
       path="/jokes/:id"
       element={<JokeDetailPage />}
+    />
+    <Route
+      path="/users/:id"
+      element={<UserProfilePage />}
     />
     <Route
       path="*"

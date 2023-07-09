@@ -6,3 +6,4 @@ export { default as NewJokePage } from './NewJokePage';
 export { default as PageNotFoundPage } from './PageNotFoundPage';
 export { default as RandomJokePage } from './RandomJokePage';
 export { default as UpdateJokePage } from './UpdateJokePage';
+export { default as UserProfilePage } from './UserProfilePage';

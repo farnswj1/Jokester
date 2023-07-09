@@ -28,7 +28,7 @@ const Header: FC = () => {
           </Typography>
           {
             user ? (
-              <Typography onClick={logout}>
+              <Typography onClick={() => logout()}>
                 <Link to="/">Logout</Link>
               </Typography>
             ) : (

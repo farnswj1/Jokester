@@ -1,10 +1,10 @@
-import { createContext, MouseEventHandler } from 'react';
+import { createContext } from 'react';
 import { User } from 'auth';
 
 interface AuthenticationContextProps {
-  user: User | null,
-  login: CallableFunction,
-  logout: MouseEventHandler<HTMLSpanElement>
+  user: User | null
+  login: CallableFunction
+  logout: CallableFunction
 }
 
 const defaultValues: AuthenticationContextProps = {

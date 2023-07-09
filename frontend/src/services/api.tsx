@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { TokenHandler } from 'auth';
 
+const LOGIN_URL = '/api/login/';
+const REFRESH_URL = '/api/refresh/';
+
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -26,14 +29,14 @@ instance.interceptors.response.use(
   async (error) => {
     const { config, response } = error;
 
-    if (config.url !== '/api/login/' && response?.status === 401 && !config._retry) {
-      if (config.url === '/api/refresh/') {
+    if (config.url !== LOGIN_URL && response?.status === 401 && !config._retry) {
+      if (config.url === REFRESH_URL) {
         TokenHandler.delete();
       } else {
         const refresh = TokenHandler.getRefresh();
 
         try {
-          const _response = await instance.post('/api/refresh/', { refresh });
+          const _response = await instance.post(REFRESH_URL, { refresh });
           const { access } = _response.data;
           TokenHandler.setAccess(access);
           config._retry = true;
