@@ -9,18 +9,23 @@ import {
 } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { setTitle } from 'utils';
+import { footerStyle, setTitle } from 'utils';
 import { Joke } from 'types';
+import DeleteJokeModal from './DeleteJokeModal';
 
 const JokeDetailPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<number | null>(null);
   const [joke, setJoke] = useState<Joke | null>(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
   const isStaff = user?.is_staff;
   setTitle(joke ? joke.title : `Joke #${id}`);
+
+  const handleOpenDeleteModal = () => setOpenDeleteModal(true);
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
 
   const getJoke = () => {
     setIsLoading(true);
@@ -41,19 +46,17 @@ const JokeDetailPage: FC = () => {
   };
 
   const deleteJoke = () => {
-    if (window.confirm("Are you sure you want to delete this joke?")) {
-      APIService.delete(`/api/jokes/${id}/`)
-        .then(({ status }) => {
-          setStatus(status);
-          navigate('/');
-        })
-        .catch(({ response}) => {
-          setStatus(response.status);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+    APIService.delete(`/api/jokes/${id}/`)
+      .then(({ status }) => {
+        setStatus(status);
+        navigate('/');
+      })
+      .catch(({ response }) => {
+        setStatus(response.status);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(getJoke, [id]);
@@ -75,7 +78,7 @@ const JokeDetailPage: FC = () => {
           <JokeInformation joke={joke} />
         )
       }
-      <ButtonGroup variant="contained">
+      <ButtonGroup variant="contained" sx={footerStyle}>
         <Button size="large">
           <Link to="/">
             Back
@@ -89,9 +92,14 @@ const JokeDetailPage: FC = () => {
                   Update
                 </Link>
               </Button>
-              <Button size="large" onClick={deleteJoke}>
+              <Button size="large" onClick={handleOpenDeleteModal}>
                 Delete
               </Button>
+              <DeleteJokeModal
+                open={openDeleteModal}
+                onClose={handleCloseDeleteModal}
+                onDelete={deleteJoke}
+              />
             </Fragment>
           )
         }

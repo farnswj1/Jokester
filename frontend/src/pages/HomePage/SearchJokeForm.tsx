@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, FormEventHandler } from 'react';
 import {
   Box,
   FormControl,
@@ -9,11 +9,11 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchJokeFormProps {
-  handleSubmit: CallableFunction
+  onSubmit: FormEventHandler<HTMLFormElement>
 }
 
-const SearchJokeForm: FC<SearchJokeFormProps> = ({ handleSubmit }) => (
-  <Box component="form" onSubmit={(event) => handleSubmit(event)}>
+const SearchJokeForm: FC<SearchJokeFormProps> = ({ onSubmit }) => (
+  <Box component="form" onSubmit={onSubmit}>
     <FormControl fullWidth variant="outlined">
       <TextField
         id="title"

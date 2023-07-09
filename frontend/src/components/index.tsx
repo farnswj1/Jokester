@@ -1,5 +1,6 @@
 export { default as ErrorTypography } from './ErrorTypography';
 export { default as HeaderTypography } from './HeaderTypography';
+export { default as JokeForm } from './JokeForm';
 export { default as JokeInformation } from './JokeInformation';
 export { default as LoadingBar } from './LoadingBar';
 export { default as PageContainer } from './PageContainer';

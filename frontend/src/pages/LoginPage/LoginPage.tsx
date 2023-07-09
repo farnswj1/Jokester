@@ -1,11 +1,5 @@
 import { FC, FormEvent, useState } from 'react';
-import {
-  Box,
-  FormControl,
-  TextField,
-  Button,
-  Container
-} from '@mui/material';
+import { Box, FormControl, TextField, Button } from '@mui/material';
 import {
   HeaderTypography,
   PageContainer,
@@ -47,47 +41,45 @@ const LoginPage: FC = () => {
       <HeaderTypography>
         Login
       </HeaderTypography>
-      <Container>
-        <Box component="form" onSubmit={handleSubmit}>
-          <FormControl fullWidth variant="outlined">
-            {
-              status === 401 && (
-                <ErrorTypography>
-                  Please enter a valid username and password.
-                </ErrorTypography>
-              )
-            }
-            {
-              (status && status >= 500) && (
-                <ServerErrorMessage />
-              )
-            }
-            <TextField
-              id="username"
-              name="username"
-              label="Username"
-              sx={paddingStyle}
-              required
-            />
-            <TextField
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              sx={paddingStyle}
-              required
-            />
-          </FormControl>
-          <Button
-            variant="contained"
-            type="submit"
-            size="large"
-            disabled={isLoading}
-          >
-            Login
-          </Button>
-        </Box>
-      </Container>
+      {
+        status === 401 && (
+          <ErrorTypography>
+            Please enter a valid username and password.
+          </ErrorTypography>
+        )
+      }
+      {
+        (status && status >= 500) && (
+          <ServerErrorMessage />
+        )
+      }
+      <Box component="form" onSubmit={handleSubmit}>
+        <FormControl fullWidth variant="outlined">
+          <TextField
+            id="username"
+            name="username"
+            label="Username"
+            sx={paddingStyle}
+            required
+          />
+          <TextField
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            sx={paddingStyle}
+            required
+          />
+        </FormControl>
+        <Button
+          variant="contained"
+          type="submit"
+          size="large"
+          disabled={isLoading}
+        >
+          Login
+        </Button>
+      </Box>
     </PageContainer>
   );
 };

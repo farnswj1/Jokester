@@ -1,20 +1,15 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
-  Box,
-  FormControl,
-  TextField,
-  Button
-} from '@mui/material';
-import {
   ErrorTypography,
   HeaderTypography,
+  JokeForm,
   LoadingBar,
   PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
-import { paddingStyle, setTitle } from 'utils';
+import { setTitle } from 'utils';
 import { Joke } from 'types';
 
 const UpdateJokePage: FC = () => {
@@ -49,7 +44,7 @@ const UpdateJokePage: FC = () => {
     setStatus(null);
 
     const data = new FormData(event.currentTarget);
-    
+
     APIService.put(`/api/jokes/${id}/`, data)
       .then(({ status }) => {
         setStatus(status);
@@ -89,31 +84,11 @@ const UpdateJokePage: FC = () => {
       }
       {
         joke && (
-          <Box component="form" onSubmit={handleSubmit}>
-            <FormControl fullWidth variant="outlined">
-              <TextField
-                id="title"
-                name="title"
-                label="Title"
-                sx={paddingStyle}
-                defaultValue={joke.title}
-                required
-              />
-              <TextField
-                id="body"
-                name="body"
-                label="Body"
-                sx={paddingStyle}
-                multiline
-                rows={10}
-                defaultValue={joke.body}
-                required
-              />
-            </FormControl>
-            <Button variant="contained" type="submit" size="large">
-              Submit
-            </Button>
-          </Box>
+          <JokeForm
+            isLoading={isLoading}
+            onSubmit={handleSubmit}
+            joke={joke}
+          />
         )
       }
     </PageContainer>

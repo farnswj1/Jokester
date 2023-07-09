@@ -5,23 +5,30 @@ import { useAuth } from 'hooks';
 
 const Header: FC = () => {
   const { user, logout } = useAuth();
+  const mr3 = { mr: 3 };
 
   return (
     <Box>
       <AppBar position="sticky">
         <Toolbar>
           <Typography sx={{ flexGrow: 1 }}>
-            <Link to="/">Jokes API</Link>
+            <Link to="/">
+              Jokes API
+            </Link>
           </Typography>
-          <Typography sx={{ mr: 3 }}>
-            <Link to="/jokes/random">Random</Link>
+          <Typography sx={mr3}>
+            <Link to="/jokes/random">
+              Random
+            </Link>
           </Typography>
-          <Typography sx={{ mr: 3 }}>
-            <Link to="/about">About</Link>
+          <Typography sx={mr3}>
+            <Link to="/about">
+              About
+            </Link>
           </Typography>
           {
             user ? (
-              <Typography onClick={() => logout()}>
+              <Typography onClick={logout}>
                 <Link to="/">Logout</Link>
               </Typography>
             ) : (

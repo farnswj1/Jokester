@@ -1,14 +1,10 @@
-import { FC, ReactNode} from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthenticationContext } from 'contexts';
 import TokenHandler from './TokenHandler';
 import { Credentials } from 'types';
 
-interface AuthProviderProps {
-  children: ReactNode
-}
-
-const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +18,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     TokenHandler.delete();
-    // navigate('/');
   };
 
   const values = {

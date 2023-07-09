@@ -8,7 +8,7 @@ import {
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
-import { useAuth } from 'hooks'; 
+import { useAuth } from 'hooks';
 import { setTitle, paddingStyle } from 'utils';
 import { BaseJoke } from 'types';
 import SearchJokeForm from './SearchJokeForm';
@@ -65,7 +65,7 @@ const HomePage: FC = () => {
         Jokes API
       </HeaderTypography>
       <Box sx={paddingStyle}>
-        <SearchJokeForm handleSubmit={handleSearchSubmit} />
+        <SearchJokeForm onSubmit={handleSearchSubmit} />
       </Box>
       {
         isLoading && (

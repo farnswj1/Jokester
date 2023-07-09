@@ -10,15 +10,18 @@ interface JokeInformationProps {
 const JokeInformation: FC<JokeInformationProps> = ({ joke }) => (
   <Fragment>
     <Typography variant="h4" sx={headerStyle}>
-      {joke?.title}
+      {joke.title}
     </Typography>
     {
-      joke?.body.split(/\n+/g).map((text, index) => (
+      joke.body.split(/\n+/g).map((text, index) => (
         <Typography key={index} sx={paddingStyle}>
           {text}
         </Typography>
       ))
     }
+    <Typography variant="subtitle1">
+      This joke was created by {joke.author.username}
+    </Typography>
   </Fragment>
 );
 

@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework.fields import UUIDField, CharField
-from core.serializers import UserSerializer, UserIDAndNameOnlySerializer
+from core.serializers import UserIDAndNameOnlySerializer
 from jokes.models import Joke
 
 
@@ -22,7 +22,7 @@ class JokeListSerializer(ModelSerializer):
 
 
 class JokeSerializer(ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = UserIDAndNameOnlySerializer(read_only=True)
 
     class Meta:
         model = Joke

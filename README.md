@@ -1,5 +1,5 @@
 # Jokester
-This app allows users to read jokes that were extracted from Reddit. 
+This app allows users to read jokes that were extracted from Reddit.
 
 ## Setup
 The project uses the following:

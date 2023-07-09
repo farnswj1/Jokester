@@ -1,2 +1,8 @@
-export { errorStyle, footerStyle, headerStyle, paddingStyle } from './styles';
+export {
+  errorStyle,
+  footerStyle,
+  headerStyle,
+  paddingStyle,
+  verticalPaddingStyle
+} from './styles';
 export { default as setTitle } from './title';

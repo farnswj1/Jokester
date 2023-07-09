@@ -1,4 +1,4 @@
-import { BaseUserName, UserProfile } from './User';
+import { BaseUserName } from './User';
 
 export interface BaseJoke {
   id: string
@@ -7,6 +7,5 @@ export interface BaseJoke {
 }
 
 export interface Joke extends BaseJoke {
-  author: UserProfile
   body: string
 }
