@@ -1,12 +1,18 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Box, Typography, Button, LinearProgress } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import {
+  HeaderTypography,
+  LoadingBar,
+  PageContainer,
+  ServerErrorMessage
+} from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks'; 
+import { setTitle, paddingStyle } from 'utils';
+import { BaseJoke } from 'types';
 import SearchJokeForm from './SearchJokeForm';
 import JokeList from './JokeList';
-import { setTitle } from 'utils';
-import { BaseJoke } from 'types';
 
 const HomePage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -15,11 +21,15 @@ const HomePage: FC = () => {
   const [previousPage, setPreviousPage] = useState<string | null>(null);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const { user } = useAuth();
+  const isStaff = user?.hasGroup('Administrators');
   setTitle('Home');
 
   const getJokesList = (url: string) => {
     setIsLoading(true);
     setStatus(null);
+    setJokes(null);
+    setPreviousPage(null);
+    setNextPage(null);
 
     APIService.get(url)
       .then(({ data, status }) => {
@@ -32,9 +42,6 @@ const HomePage: FC = () => {
         setNextPage(next);
       })
       .catch(({ response }) => {
-        setJokes(null);
-        setPreviousPage(null);
-        setNextPage(null);
         setStatus(response.status);
       })
       .finally(() => {
@@ -44,57 +51,52 @@ const HomePage: FC = () => {
 
   useEffect(() => getJokesList('/api/jokes/all/'), []);
 
-  const handleSearchSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
+    const data = new FormData(event.currentTarget);
     const query = new URLSearchParams(data as any).toString();
     getJokesList(`/api/jokes/all/?${query}`);
-  }
-
-  const isStaff = user?.hasGroup('Administrators');
+  };
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} sm={10} md={8}>
-        <Typography variant="h2" align="center" sx={{ mb: 3 }}>
-          Jokes API
-        </Typography>
-        <Box sx={{ mb: 3 }}>
-          <SearchJokeForm handleSubmit={handleSearchSubmit} />
-        </Box>
-        {
-          isStaff && (
-            <Link to="/jokes/new">
-              <Button variant="contained" sx={{ mb: 3 }}>
-                Add New Joke
-              </Button>
-            </Link>
-          )
-        }
-        {
-          isLoading ? (
-            <LinearProgress color="inherit" />
-          ) : status && status >= 500 ? (
-            <Typography variant="h5" sx={{ color: 'red' }}>
-              There was an error with the server.
-            </Typography>
-          ) : jokes?.length === 0 ? (
-            <Typography variant="h5">
-              No joke met the search criteria.
-            </Typography>
-          ) : (
-            <JokeList
-              jokes={jokes || []}
-              previousPage={previousPage}
-              nextPage={nextPage}
-              changePage={getJokesList}
-            />
-          )
-        }
-      </Grid>
-    </Grid>
+    <PageContainer>
+      <HeaderTypography>
+        Jokes API
+      </HeaderTypography>
+      <Box sx={paddingStyle}>
+        <SearchJokeForm handleSubmit={handleSearchSubmit} />
+      </Box>
+      {
+        isLoading && (
+          <LoadingBar />
+        )
+      }
+      {
+        isStaff && (
+          <Link to="/jokes/new">
+            <Button variant="contained" sx={paddingStyle}>
+              Add New Joke
+            </Button>
+          </Link>
+        )
+      }
+      {
+        (status && status >= 500) && (
+          <ServerErrorMessage />
+        )
+      }
+      {
+        jokes && (
+          <JokeList
+            jokes={jokes}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            changePage={getJokesList}
+          />
+        )
+      }
+    </PageContainer>
   );
 };
 

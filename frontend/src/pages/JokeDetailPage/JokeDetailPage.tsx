@@ -1,6 +1,12 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Box, Typography, LinearProgress, ButtonGroup, Button } from '@mui/material';
+import { ButtonGroup, Button } from '@mui/material';
+import {
+  JokeInformation,
+  LoadingBar,
+  PageContainer,
+  ServerErrorMessage
+} from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
 import { setTitle } from 'utils';
@@ -13,11 +19,13 @@ const JokeDetailPage: FC = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  setTitle(joke ? joke.id : 'Joke');
+  const isStaff = user?.is_staff;
+  setTitle(joke ? joke.title : `Joke #${id}`);
 
   const getJoke = () => {
     setIsLoading(true);
     setStatus(null);
+    setJoke(null);
 
     APIService.get(`/api/jokes/${id}/`)
       .then(({ data, status }) => {
@@ -26,7 +34,6 @@ const JokeDetailPage: FC = () => {
       })
       .catch(({ response }) => {
         setStatus(response.status);
-        setJoke(null);
       })
       .finally(() => {
         setIsLoading(false);
@@ -51,47 +58,45 @@ const JokeDetailPage: FC = () => {
 
   useEffect(getJoke, [id]);
 
-  const isStaff = user?.is_staff;
-
   return (
-    <Box>
+    <PageContainer>
       {
-        isLoading ? (
-          <LinearProgress color="inherit" />
-        ) : status && status >= 500 ? (
-          <Typography variant="h5" sx={{ color: 'red' }}>
-            There was an error with the server.
-          </Typography>
-        ) : (
-          <Box>
-            <Typography variant="h4" sx={{ mb: 5 }}>
-              {joke?.title}
-            </Typography>
-            {
-              joke?.body.split(/\n+/g).map((text, index) => (
-                <Typography key={index} sx={{ mb: 3 }}>
-                  {text}
-                </Typography>
-              ))
-            }
-            {
-              isStaff && (
-                <ButtonGroup sx={{ mt: 5 }} variant="contained">
-                  <Button size="large">
-                    <Link to={`/jokes/${joke?.id}/update`}>
-                      Update
-                    </Link>
-                  </Button>
-                  <Button size="large" onClick={deleteJoke}>
-                    Delete
-                  </Button>
-                </ButtonGroup>
-              )
-            }
-          </Box>
+        isLoading && (
+          <LoadingBar />
         )
       }
-    </Box>
+      {
+        (status && status >= 500) && (
+          <ServerErrorMessage />
+        )
+      }
+      {
+        joke && (
+          <JokeInformation joke={joke} />
+        )
+      }
+      <ButtonGroup variant="contained">
+        <Button size="large">
+          <Link to="/">
+            Back
+          </Link>
+        </Button>
+        {
+          isStaff && (
+            <Fragment>
+              <Button size="large">
+                <Link to={`/jokes/${joke?.id}/update`}>
+                  Update
+                </Link>
+              </Button>
+              <Button size="large" onClick={deleteJoke}>
+                Delete
+              </Button>
+            </Fragment>
+          )
+        }
+      </ButtonGroup>
+    </PageContainer>
   );
 };
 

@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItemButton, ListItemText, ButtonGroup, Button } from '@mui/material';
+import { ButtonGroup, Button, Grid, Typography } from '@mui/material';
+import { footerStyle } from 'utils';
 
 interface JokeListProps {
   jokes: any[]
@@ -19,21 +20,33 @@ const JokeList: FC<JokeListProps> = ({
   const getNextPage = () => changePage(nextPage);
 
   return (
-    <List>
+    <Fragment>
       {
-        jokes.map(joke => (
-          <ListItemButton key={joke.id}>
-            <Link to={`/jokes/${joke.id}`}>
-              <ListItemText primary={joke.title} />
-            </Link>
-          </ListItemButton>
-        ))
+        jokes.length === 0 ? (
+          <Typography variant="h5">
+            No joke met the search criteria.
+          </Typography>
+        ) : (
+          <Grid container justifyContent="center" spacing={2}>
+            {
+              jokes.map(joke => (
+                <Grid item xs={12} sm={12} md={6} key={joke.id}>
+                  <Link to={`/jokes/${joke.id}`}>
+                    <Button variant="contained" fullWidth>
+                      {joke.title}
+                    </Button>
+                  </Link>
+                </Grid>
+              ))
+            }
+          </Grid>
+        )
       }
       {
         (previousPage || nextPage) && (
           <ButtonGroup
             variant="contained"
-            sx={{ mt: 5 }}
+            sx={footerStyle}
           >
             <Button
               size="large"
@@ -52,7 +65,7 @@ const JokeList: FC<JokeListProps> = ({
           </ButtonGroup>
         )
       }
-    </List>
+    </Fragment>
   );
 };
 

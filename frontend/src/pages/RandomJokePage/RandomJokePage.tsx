@@ -1,7 +1,15 @@
-import { FC, Fragment, useEffect, useState } from 'react';
-import { Box, Typography, LinearProgress, Button } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, ButtonGroup } from '@mui/material';
+import {
+  HeaderTypography,
+  JokeInformation,
+  LoadingBar,
+  PageContainer,
+  ServerErrorMessage
+} from 'components';
 import { APIService } from 'services';
-import { setTitle } from 'utils';
+import { footerStyle, setTitle } from 'utils';
 import { Joke } from 'types';
 
 const RandomJokePage: FC = () => {
@@ -13,6 +21,7 @@ const RandomJokePage: FC = () => {
   const getRandomJoke = () => {
     setIsLoading(true);
     setStatus(null);
+    setJoke(null);
 
     APIService.get('/api/jokes/random/')
       .then(({ data, status }) => {
@@ -20,7 +29,6 @@ const RandomJokePage: FC = () => {
         setStatus(status);
       })
       .catch(({ response }) => {
-        setJoke(null);
         setStatus(response.status);
       })
       .finally(() => {
@@ -31,38 +39,36 @@ const RandomJokePage: FC = () => {
   useEffect(getRandomJoke, []);
 
   return (
-    <Box>
+    <PageContainer>
+      <HeaderTypography>
+        Random Joke
+      </HeaderTypography>
       {
-        isLoading ? (
-          <LinearProgress color="inherit" />
-        ) : status && status >= 500 ? (
-          <Typography variant="h5" sx={{ color: 'red' }}>
-            There was an error with the server.
-          </Typography>
-        ) : (
-          <Fragment>
-            <Button
-              variant="contained"
-              sx={{ mb: 5 }}
-              size="large"
-              onClick={getRandomJoke}
-            >
-              Get another joke!
-            </Button>
-            <Typography variant="h4" sx={{ mb: 5 }}>
-              {joke?.title}
-            </Typography>
-            {
-              joke?.body.split(/\n+/g).map((text, index) => (
-                <Typography key={index} sx={{ mb: 3 }}>
-                  {text}
-                </Typography>
-              ))
-            }
-          </Fragment>
+        isLoading && (
+          <LoadingBar />
         )
       }
-    </Box>
+      {
+        (status && status >= 500) && (
+          <ServerErrorMessage />
+        )
+      }
+      {
+        joke && (
+          <JokeInformation joke={joke} />
+        )
+      }
+      <ButtonGroup variant="contained" sx={footerStyle}>
+        <Button size="large">
+          <Link to="/">
+            Back
+          </Link>
+        </Button>
+        <Button size="large" onClick={getRandomJoke}>
+          Get another joke!
+        </Button>
+      </ButtonGroup>
+    </PageContainer>
   );
 };
 

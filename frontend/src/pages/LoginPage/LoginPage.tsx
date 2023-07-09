@@ -1,15 +1,20 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import {
-  Grid,
   Box,
-  Typography,
   FormControl,
   TextField,
-  Button
+  Button,
+  Container
 } from '@mui/material';
+import {
+  HeaderTypography,
+  PageContainer,
+  ErrorTypography,
+  ServerErrorMessage
+} from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { setTitle } from 'utils';
+import { paddingStyle, setTitle } from 'utils';
 
 const LoginPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,13 +22,12 @@ const LoginPage: FC = () => {
   const { login } = useAuth();
   setTitle('Login');
 
-  const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setStatus(null);
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
+    const data = new FormData(event.currentTarget);
 
     APIService.post('/api/login/', data)
       .then(({ status, data }) => {
@@ -39,32 +43,30 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} sm={10} md={8}>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Login
-        </Typography>
+    <PageContainer maxWidth="sm">
+      <HeaderTypography>
+        Login
+      </HeaderTypography>
+      <Container>
         <Box component="form" onSubmit={handleSubmit}>
           <FormControl fullWidth variant="outlined">
             {
               status === 401 && (
-                <Typography sx={{ mb: 3, color: 'red' }}>
+                <ErrorTypography>
                   Please enter a valid username and password.
-                </Typography>
+                </ErrorTypography>
               )
             }
             {
               (status && status >= 500) && (
-                <Typography sx={{ mb: 3, color: 'red' }}>
-                  There was an error with the server!
-                </Typography>
+                <ServerErrorMessage />
               )
             }
             <TextField
               id="username"
               name="username"
               label="Username"
-              sx={{ mb: 3 }}
+              sx={paddingStyle}
               required
             />
             <TextField
@@ -72,7 +74,7 @@ const LoginPage: FC = () => {
               name="password"
               label="Password"
               type="password"
-              sx={{ mb: 3 }}
+              sx={paddingStyle}
               required
             />
           </FormControl>
@@ -85,8 +87,8 @@ const LoginPage: FC = () => {
             Login
           </Button>
         </Box>
-      </Grid>
-    </Grid>
+      </Container>
+    </PageContainer>
   );
 };
 

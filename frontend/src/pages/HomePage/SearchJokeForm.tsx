@@ -1,5 +1,11 @@
 import { FC } from 'react';
-import { Box, FormControl, TextField, InputAdornment, IconButton } from '@mui/material';
+import {
+  Box,
+  FormControl,
+  TextField,
+  InputAdornment,
+  IconButton
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchJokeFormProps {

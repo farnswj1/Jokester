@@ -1,15 +1,19 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Grid,
   Box,
-  Typography,
   FormControl,
   TextField,
   Button
 } from '@mui/material';
+import {
+  ErrorTypography,
+  HeaderTypography,
+  PageContainer,
+  ServerErrorMessage
+} from 'components';
 import { APIService } from 'services';
-import { setTitle } from 'utils';
+import { paddingStyle, setTitle } from 'utils';
 
 const NewJokePage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,18 +21,17 @@ const NewJokePage: FC = () => {
   const navigate = useNavigate();
   setTitle('New Joke');
 
-  const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setStatus(null);
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
+    const data = new FormData(event.currentTarget);
 
     APIService.post('/api/jokes/add/', data)
       .then(({ data, status }) => {
         setStatus(status);
-        navigate(`/jokes/${data.id}`)
+        navigate(`/jokes/${data.id}`);
       })
       .catch(({ response }) => {
         setStatus(response.status);
@@ -36,51 +39,54 @@ const NewJokePage: FC = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }
+  };
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} sm={10} md={8}>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          New Joke
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit}>
-          <FormControl fullWidth variant="outlined">
-            {
-              status && status >= 400 && (
-                <Typography sx={{ mb: 3, color: 'red' }}>
-                  Please double check your inputs.
-                </Typography>
-              )
-            }
-            <TextField
-              id="title"
-              name="title"
-              label="Title"
-              sx={{ mb: 3 }}
-              required
-            />
-            <TextField
-              id="body"
-              name="body"
-              label="Body"
-              sx={{ mb: 3 }}
-              multiline
-              maxRows={30}
-              required
-            />
-          </FormControl>
-          <Button
-            variant="contained"
-            type="submit"
-            size="large"
-            disabled={isLoading}
-          >
-            Submit
-          </Button>
-        </Box>
-      </Grid>
-    </Grid>
+    <PageContainer>
+      <HeaderTypography>
+        New Joke
+      </HeaderTypography>
+      <Box component="form" onSubmit={handleSubmit}>
+        {
+          (status && status === 400) && (
+            <ErrorTypography>
+              Please double check your inputs.
+            </ErrorTypography>
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        <FormControl fullWidth variant="outlined">
+          <TextField
+            id="title"
+            name="title"
+            label="Title"
+            sx={paddingStyle}
+            required
+          />
+          <TextField
+            id="body"
+            name="body"
+            label="Body"
+            sx={paddingStyle}
+            multiline
+            rows={10}
+            required
+          />
+        </FormControl>
+        <Button
+          variant="contained"
+          type="submit"
+          size="large"
+          disabled={isLoading}
+        >
+          Submit
+        </Button>
+      </Box>
+    </PageContainer>
   );
 };
 
