@@ -13,12 +13,12 @@ import { setTitle } from 'utils';
 import { Joke } from 'types';
 
 const UpdateJokePage: FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<number | null>(null);
   const [joke, setJoke] = useState<Joke | null>(null);
   const { id } = useParams();
   const navigate = useNavigate();
-  setTitle(`Update Joke ${id}`);
+  setTitle(`Update Joke #${id}`);
 
   const getJoke = () => {
     setIsLoading(true);

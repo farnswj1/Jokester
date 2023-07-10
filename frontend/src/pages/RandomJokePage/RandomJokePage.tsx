@@ -13,7 +13,7 @@ import { footerStyle, setTitle } from 'utils';
 import { Joke } from 'types';
 
 const RandomJokePage: FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<number | null>(null);
   const [joke, setJoke] = useState<Joke | null>(null);
   setTitle('Random Joke');

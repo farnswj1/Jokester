@@ -5,5 +5,8 @@ export { default as LoginPage } from './LoginPage';
 export { default as NewJokePage } from './NewJokePage';
 export { default as PageNotFoundPage } from './PageNotFoundPage';
 export { default as RandomJokePage } from './RandomJokePage';
+export { default as RegisterUserPage } from './RegisterUserPage';
 export { default as UpdateJokePage } from './UpdateJokePage';
+export { default as UpdatePasswordPage } from './UpdatePasswordPage';
+export { default as UpdateUserPage } from './UpdateUserPage';
 export { default as UserProfilePage } from './UserProfilePage';

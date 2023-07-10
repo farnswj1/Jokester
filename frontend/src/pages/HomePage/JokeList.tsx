@@ -27,7 +27,12 @@ const JokeList: FC<JokeListProps> = ({
             No joke met the search criteria.
           </Typography>
         ) : (
-          <Grid container justifyContent="center" spacing={2}>
+          <Grid
+            container
+            justifyContent="center"
+            rowSpacing={2}
+            columnSpacing={4}
+          >
             {
               jokes.map(joke => (
                 <Grid item xs={12} sm={12} md={6} key={joke.id}>

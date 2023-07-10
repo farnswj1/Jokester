@@ -21,7 +21,6 @@ const HomePage: FC = () => {
   const [previousPage, setPreviousPage] = useState<string | null>(null);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const { user } = useAuth();
-  const isStaff = user?.hasGroup('Administrators');
   setTitle('Home');
 
   const getJokesList = (url: string) => {
@@ -73,7 +72,7 @@ const HomePage: FC = () => {
         )
       }
       {
-        isStaff && (
+        user && (
           <Link to="/jokes/new">
             <Button variant="contained" sx={paddingStyle}>
               Add New Joke

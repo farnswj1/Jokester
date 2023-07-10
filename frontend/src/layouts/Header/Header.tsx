@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, AppBar, Toolbar, Typography } from '@mui/material';
 import { useAuth } from 'hooks';
@@ -28,13 +28,31 @@ const Header: FC = () => {
           </Typography>
           {
             user ? (
-              <Typography onClick={() => logout()}>
-                <Link to="/">Logout</Link>
-              </Typography>
+              <Fragment>
+                <Typography sx={mr3}>
+                  <Link to={`/users/${user.id}`}>
+                    Profile
+                  </Link>
+                </Typography>
+                <Typography onClick={() => logout()}>
+                  <Link to="/">
+                    Logout
+                  </Link>
+                </Typography>
+              </Fragment>
             ) : (
-              <Typography>
-                <Link to="/login">Login</Link>
-              </Typography>
+              <Fragment>
+                <Typography sx={mr3}>
+                  <Link to="/register">
+                    Register
+                  </Link>
+                </Typography>
+                <Typography>
+                  <Link to="/login">
+                    Login
+                  </Link>
+                </Typography>
+              </Fragment>
             )
           }
         </Toolbar>

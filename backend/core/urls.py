@@ -5,7 +5,7 @@ from core import views
 app_name = 'core'
 
 password_urls = [
-    path('<str:pk>/update/', views.UserUpdatePasswordAPIView.as_view(), name='update'),
+    path('<str:pk>/', views.UserUpdatePasswordAPIView.as_view(), name='update'),
 ]
 
 user_urls = [

@@ -6,11 +6,14 @@ from core.models import User
 
 @register(User)
 class UserAdmin(BaseUserAdmin):
+    readonly_fields = ('id',)
+
     fieldsets = (
         (
             None,
             {
                 'fields': (
+                    'id',
                     'username',
                     'password'
                 )
