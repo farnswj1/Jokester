@@ -122,8 +122,14 @@ const UpdatePasswordPage: FC = () => {
                 required
               />
               <FormControlLabel
-                label="Label"
-                control={<Checkbox name="acknowledged" onChange={handleInputChange} />}
+                label="I acknowledge that I am changing my password."
+                control={
+                  <Checkbox
+                    id="acknowledged"
+                    name="acknowledged"
+                    onChange={handleInputChange}
+                  />
+                }
                 sx={paddingStyle}
               />
             </FormControl>
