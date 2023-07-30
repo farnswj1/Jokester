@@ -11,14 +11,25 @@ export default class User implements IUser {
   groups: string[];
 
   constructor(props: TokenUser) {
-    this.id = props.id;
-    this.username = props.username;
-    this.is_staff = props.is_staff;
-    this.token_type = props.token_type;
-    this.iat = props.iat;
-    this.exp = props.exp;
-    this.jti = props.jti;
-    this.groups = props.groups;
+    const {
+      id,
+      username,
+      is_staff,
+      token_type,
+      iat,
+      exp,
+      jti,
+      groups
+    } = props;
+
+    this.id = id;
+    this.username = username;
+    this.is_staff = is_staff;
+    this.token_type = token_type;
+    this.iat = iat;
+    this.exp = exp;
+    this.jti = jti;
+    this.groups = groups;
   }
 
   hasGroup(group: string) {
@@ -26,9 +37,9 @@ export default class User implements IUser {
   }
 
   hasGroups(groups: string[]) {
-    const groupSet = new Set(groups);
+    const groupSet = new Set(this.groups);
 
-    for (const group of this.groups) {
+    for (const group of groups) {
       if (!groupSet.has(group)) {
         return false;
       }
