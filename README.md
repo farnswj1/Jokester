@@ -33,6 +33,7 @@ SECRET_KEY=somerandomstring
 DEBUG=False
 ALLOWED_HOSTS=localhost
 CORS_ALLOWED_ORIGIN_REGEXES=^https?://(localhost|127\.0\.0\.1)(:3000)?$
+CSRF_TRUSTED_ORIGINS=http://localhost http://127.0.0.1
 
 DB_ENGINE=django.db.backends.postgresql
 DB_HOST=postgres
