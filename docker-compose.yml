@@ -40,7 +40,7 @@ services:
     env_file:
       - ./frontend/.env
     volumes:
-      - frontend_static:/opt/app/build/:rw
+      - frontend_static:/opt/app/dist/:rw
     networks:
       - public
     depends_on:

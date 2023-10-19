@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ErrorTypography,
@@ -18,7 +18,7 @@ const RegisterUserPage: FC = () => {
   const navigate = useNavigate();
   setTitle('Register');
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     const element = event.target.name;
     let passwordElement: HTMLInputElement;
     let confirmPasswordElement: HTMLInputElement;

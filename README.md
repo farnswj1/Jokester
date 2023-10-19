@@ -3,15 +3,18 @@ This app allows users to read jokes that were extracted from Reddit.
 
 ## Setup
 The project uses the following:
-- Python 3.11
-- Django 4.2
+- Python 3
+- TypeScript
+- Django
 - Celery
 - NPM
-- React 18
-- Material-UI 5
-- PostgreSQL 15
-- Redis 7
-- Nginx 1.23
+- React
+- Material-UI
+- Vite
+- PostgreSQL
+- Redis
+- Nginx
+- Certbot
 - Docker
 - Docker Compose
 
@@ -68,3 +71,18 @@ To run the web app, run ```docker compose up -d```, then go to http://localhost 
 This project provides data to use for the project. Populating the database should only be done once to avoid duplicate data. To do so, run ```docker exec -it backend python manage.py loaddata data.json```.
 
 To create a staff user, run ```docker exec -it backend python manage.py createsuperuser``` and fill out the fields in the prompt.
+
+### Setting Up HTTPS With Certbot
+There are configurations already set up via `cli.ini` in the `certbot` directory. To receive an SSL certificate using those configurations, run:
+```
+docker compose run --no-deps --rm certbot certonly -d [enter domain here]
+```
+
+Fill out the prompt, then configure Nginx to use the SSL certificate and domain.
+
+To renew the SSL certificate and use the newest certificate, run:
+```
+docker compose run --no-deps --rm certbot renew && docker exec nginx nginx -s reload
+```
+
+**NOTE**: Ensure port 443 is exposed in `docker-compose.yml` for HTTPS.

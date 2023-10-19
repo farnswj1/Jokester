@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Box,
@@ -28,7 +28,7 @@ const UpdatePasswordPage: FC = () => {
   const navigate = useNavigate();
   setTitle(`Update User #${id}`);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const element = event.target.name;
     const acknowledgedInputElement = document.querySelector('[name="acknowledged"]') as HTMLInputElement;
     let passwordElement: HTMLInputElement;

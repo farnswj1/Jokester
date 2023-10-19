@@ -1,9 +1,6 @@
 # base image
 FROM node:19-alpine
 
-# expose port(s)
-EXPOSE 3000
-
 # set directory
 WORKDIR /opt/app
 

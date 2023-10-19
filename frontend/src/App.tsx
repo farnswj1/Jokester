@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from 'auth';
 import { Header, Footer } from 'layouts';
 import Routes from 'routes';
 
-const App: React.FC = () => {
+const App: FC = () => {
   const theme = createTheme({
     palette: {
       mode: 'light'
