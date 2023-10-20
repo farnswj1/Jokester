@@ -36,6 +36,7 @@ const App: FC = () => {
               bgcolor="background.default"
               color="text.primary"
               paddingY={5}
+              marginBottom="auto"
             >
               <Routes />
             </Box>

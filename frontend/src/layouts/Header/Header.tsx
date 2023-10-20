@@ -53,12 +53,20 @@ const Header: FC = () => {
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               keepMounted
             >
-              <RouterLink to="/jokes/random" onClick={handleCloseNavMenu}>
+              <RouterLink
+                to="/jokes/random"
+                underline="none"
+                onClick={handleCloseNavMenu}
+              >
                 <MenuItem>
                   Random
                 </MenuItem>
               </RouterLink>
-              <RouterLink to="/about" onClick={handleCloseNavMenu}>
+              <RouterLink
+                to="/about"
+                underline="none"
+                onClick={handleCloseNavMenu}
+              >
                 <MenuItem>
                   About
                 </MenuItem>
@@ -68,6 +76,7 @@ const Header: FC = () => {
                   <RouterLink
                     key={0}
                     to={`/users/${user.id}`}
+                    underline="none"
                     onClick={handleCloseNavMenu}
                   >
                     <MenuItem>
@@ -77,6 +86,7 @@ const Header: FC = () => {
                   <RouterLink
                     key={1}
                     to="/"
+                    underline="none"
                     onClick={() => { logout(); handleCloseNavMenu(); }}
                   >
                     <MenuItem>
@@ -87,6 +97,7 @@ const Header: FC = () => {
                   <RouterLink
                     key={0}
                     to="/register"
+                    underline="none"
                     onClick={handleCloseNavMenu}
                   >
                     <MenuItem>
@@ -96,6 +107,7 @@ const Header: FC = () => {
                   <RouterLink
                     key={1}
                     to="/login"
+                    underline="none"
                     onClick={handleCloseNavMenu}
                   >
                     <MenuItem>
