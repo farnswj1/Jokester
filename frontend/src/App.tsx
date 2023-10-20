@@ -33,7 +33,6 @@ const App: FC = () => {
             <Header />
             <Box
               component="main"
-              height="100%"
               bgcolor="background.default"
               color="text.primary"
               paddingY={5}
