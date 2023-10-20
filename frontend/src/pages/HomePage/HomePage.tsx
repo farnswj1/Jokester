@@ -61,7 +61,7 @@ const HomePage: FC = () => {
     <Container>
       <Stack spacing={3}>
         <HeaderTypography>
-          Jokes API
+          Jokester
         </HeaderTypography>
         <SearchJokeForm onSubmit={handleSearchSubmit} />
         {
