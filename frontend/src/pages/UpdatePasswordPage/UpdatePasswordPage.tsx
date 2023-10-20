@@ -4,20 +4,20 @@ import {
   Box,
   Button,
   Checkbox,
-  FormControl,
+  Container,
   FormControlLabel,
+  Stack,
   TextField
 } from '@mui/material';
 import {
   ErrorTypography,
   HeaderTypography,
   LoadingBar,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { paddingStyle, setTitle } from 'utils';
+import { setTitle } from 'utils';
 
 const UpdatePasswordPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -79,72 +79,72 @@ const UpdatePasswordPage: FC = () => {
   };
 
   return (
-    <PageContainer maxWidth="sm">
-      <HeaderTypography>
-        Update Password
-      </HeaderTypography>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        status === 400 && (
-          <ErrorTypography>
-            Please double check your inputs.
-          </ErrorTypography>
-        )
-      }
-      {
-        user && (
-          <Box component="form" onSubmit={handleSubmit}>
-            <FormControl fullWidth variant="outlined">
+    <Container maxWidth="sm">
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Update Password
+        </HeaderTypography>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          status === 400 && (
+            <ErrorTypography>
+              Please double check your inputs.
+            </ErrorTypography>
+          )
+        }
+        {
+          user && (
+            <Stack component="form" spacing={3} onSubmit={handleSubmit}>
               <TextField
-                id="password"
                 name="password"
                 label="Password"
-                sx={paddingStyle}
+                variant="outlined"
                 onChange={handleInputChange}
+                fullWidth
                 required
               />
               <TextField
-                id="confirm_password"
                 name="confirm_password"
                 label="Confirm Password"
                 type="password"
-                sx={paddingStyle}
+                variant="outlined"
                 onChange={handleInputChange}
+                fullWidth
                 required
               />
               <FormControlLabel
                 label="I acknowledge that I am changing my password."
                 control={
                   <Checkbox
-                    id="acknowledged"
                     name="acknowledged"
                     onChange={handleInputChange}
+                    required
                   />
                 }
-                sx={paddingStyle}
               />
-            </FormControl>
-            <Button
-              variant="contained"
-              type="submit"
-              size="large"
-              disabled={isLoading || disableSubmit}
-            >
-              Save
-            </Button>
-          </Box>
-        )
-      }
-    </PageContainer>
+              <Box>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={isLoading || disableSubmit}
+                >
+                  Save
+                </Button>
+              </Box>
+            </Stack>
+          )
+        }
+      </Stack>
+    </Container>
   );
 };
 

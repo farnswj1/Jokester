@@ -1,14 +1,9 @@
 import { FC, FormEvent, useState } from 'react';
-import { Box, FormControl, TextField, Button } from '@mui/material';
-import {
-  HeaderTypography,
-  PageContainer,
-  ErrorTypography,
-  ServerErrorMessage
-} from 'components';
+import { Box, Button, Container, Stack, TextField } from '@mui/material';
+import { ErrorTypography, HeaderTypography, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { paddingStyle, setTitle } from 'utils';
+import { setTitle } from 'utils';
 
 const LoginPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,50 +32,47 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <PageContainer maxWidth="sm">
-      <HeaderTypography>
-        Login
-      </HeaderTypography>
-      {
-        status === 401 && (
-          <ErrorTypography>
-            Please enter a valid username and password.
-          </ErrorTypography>
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      <Box component="form" onSubmit={handleSubmit}>
-        <FormControl fullWidth variant="outlined">
+    <Container maxWidth="sm">
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Login
+        </HeaderTypography>
+        {
+          status === 401 && (
+            <ErrorTypography>
+              Please enter a valid username and password.
+            </ErrorTypography>
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        <Stack component="form" spacing={3} onSubmit={handleSubmit}>
           <TextField
-            id="username"
             name="username"
             label="Username"
-            sx={paddingStyle}
+            variant="outlined"
+            fullWidth
             required
           />
           <TextField
-            id="password"
             name="password"
             label="Password"
             type="password"
-            sx={paddingStyle}
+            variant="outlined"
+            fullWidth
             required
           />
-        </FormControl>
-        <Button
-          variant="contained"
-          type="submit"
-          size="large"
-          disabled={isLoading}
-        >
-          Login
-        </Button>
-      </Box>
-    </PageContainer>
+          <Box>
+            <Button variant="contained" type="submit" disabled={isLoading}>
+              Login
+            </Button>
+          </Box>
+        </Stack>
+      </Stack>
+    </Container>
   );
 };
 

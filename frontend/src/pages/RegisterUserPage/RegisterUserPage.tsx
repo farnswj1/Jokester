@@ -1,15 +1,21 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField
+} from '@mui/material';
+import {
   ErrorTypography,
   HeaderTypography,
   LoadingBar,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
-import { paddingStyle, setTitle } from 'utils';
-import { Box, Button, FormControl, Grid, TextField } from '@mui/material';
+import { setTitle } from 'utils';
 
 const RegisterUserPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -64,113 +70,102 @@ const RegisterUserPage: FC = () => {
   };
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        Update Joke
-      </HeaderTypography>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        status === 400 && (
-          <ErrorTypography>
-            Please double check your inputs.
-          </ErrorTypography>
-        )
-      }
-      <Box component="form" onSubmit={handleSubmit}>
-        <Grid container rowSpacing={2} columnSpacing={4}>
-          <Grid item xs={12} sm={12} md={6}>
-            <FormControl fullWidth variant="outlined">
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Update Joke
+        </HeaderTypography>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          status === 400 && (
+            <ErrorTypography>
+              Please double check your inputs.
+            </ErrorTypography>
+          )
+        }
+        <Box component="form" onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
               <TextField
-                id="username"
                 name="username"
                 label="Username"
-                sx={paddingStyle}
+                variant="outlined"
+                fullWidth
                 required
               />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <FormControl fullWidth variant="outlined">
+            </Grid>
+            <Grid item xs={12} md={6}>
               <TextField
-                id="email"
                 name="email"
                 label="Email"
                 type="email"
-                sx={paddingStyle}
+                variant="outlined"
+                fullWidth
                 required
               />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <FormControl fullWidth variant="outlined">
+            </Grid>
+            <Grid item xs={12} md={6}>
               <TextField
-                id="first_name"
                 name="first_name"
                 label="First Name"
-                sx={paddingStyle}
+                variant="outlined"
+                fullWidth
                 required
               />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <FormControl fullWidth variant="outlined">
+            </Grid>
+            <Grid item xs={12} md={6}>
               <TextField
-                id="last_name"
                 name="last_name"
                 label="Last Name"
-                sx={paddingStyle}
+                variant="outlined"
+                fullWidth
                 required
               />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <FormControl fullWidth variant="outlined">
+            </Grid>
+            <Grid item xs={12} md={6}>
               <TextField
-                id="password"
                 name="password"
                 label="Password"
                 type="password"
-                sx={paddingStyle}
+                variant="outlined"
                 onChange={handlePasswordChange}
+                fullWidth
                 required
               />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <FormControl fullWidth variant="outlined">
+            </Grid>
+            <Grid item xs={12} md={6}>
               <TextField
-                id="confirm_password"
                 name="confirm_password"
                 label="Confirm Password"
                 type="password"
-                sx={paddingStyle}
+                variant="outlined"
                 onChange={handlePasswordChange}
+                fullWidth
                 required
               />
-            </FormControl>
+            </Grid>
           </Grid>
-        </Grid>
-        <Box display="flex" justifyContent="space-between">
-          <Button
-            variant="contained"
-            type="submit"
-            size="large"
-            disabled={isLoading || disableSubmit}
-          >
-            Register
-          </Button>
+          <Box marginTop={3}>
+            <Button
+              variant="contained"
+              type="submit"
+              disabled={isLoading || disableSubmit}
+            >
+              Register
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </PageContainer>
+      </Stack>
+    </Container>
   );
 };
 

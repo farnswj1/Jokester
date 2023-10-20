@@ -1,22 +1,18 @@
 import { FC } from 'react';
-import { Box, AppBar, Toolbar, Typography } from '@mui/material';
+import { Box, Container, Paper, Typography } from '@mui/material';
 
-const Footer: FC = () => {
-  const year = new Date().getFullYear();
+const year = new Date().getFullYear();
 
-  return (
-    <Box sx={{ mt: 'auto' }}>
-      <AppBar position="relative">
-        <Toolbar sx={{ mx: 'auto' }}>
-          <Box>
-            <Typography>
-              &copy; {year} Justin Farnsworth
-            </Typography>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
-};
+const Footer: FC = () => (
+  <Paper component="footer" square>
+    <Container maxWidth="lg">
+      <Box paddingY={2} textAlign="center">
+        <Typography>
+          &copy; {year} Justin Farnsworth
+        </Typography>
+      </Box>
+    </Container>
+  </Paper>
+);
 
 export default Footer;

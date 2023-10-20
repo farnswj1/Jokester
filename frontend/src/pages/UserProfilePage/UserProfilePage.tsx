@@ -1,15 +1,10 @@
-import { FC, Fragment, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, ButtonGroup, Typography } from '@mui/material';
-import {
-  HeaderTypography,
-  LoadingBar,
-  PageContainer,
-  ServerErrorMessage
-} from 'components';
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Box, Button, ButtonGroup, Container, Stack, Typography } from '@mui/material';
+import { ButtonLink, HeaderTypography, LoadingBar, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { footerStyle, paddingStyle, parseISOToLocale, setTitle } from 'utils';
+import { parseISOToLocale, setTitle } from 'utils';
 import { UserProfile } from 'types';
 import DeleteUserModal from './DeleteUserModal';
 
@@ -71,52 +66,52 @@ const UserProfilePage: FC = () => {
   useEffect(getProfile, [id]);
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        User Profile
-      </HeaderTypography>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        profile && (
-          <Fragment>
-            <Typography sx={paddingStyle}>
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          User Profile
+        </HeaderTypography>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          profile && ([
+            <Typography key={0}>
               {'Username: ' + profile.username}
-            </Typography>
-            <Typography>
+            </Typography>,
+            <Typography key={1}>
               {'Date Joined: ' + parseISOToLocale(profile.date_joined)}
             </Typography>
-          </Fragment>
-        )
-      }
-      {
-        (profile && hasPermission) && (
-          <ButtonGroup variant="contained" sx={footerStyle}>
-            <Button size="large">
-              <Link to={`/users/${profile.id}/update`}>
-                Update
-              </Link>
-            </Button>
-            <Button size="large" onClick={handleOpenDeleteModal}>
-              Delete
-            </Button>
-            <DeleteUserModal
-              open={openDeleteModal}
-              onClose={handleCloseDeleteModal}
-              onDelete={deleteProfile}
-            />
-          </ButtonGroup>
-        )
-      }
-    </PageContainer>
+          ])
+        }
+        {
+          (profile && hasPermission) && (
+            <Box>
+              <ButtonGroup variant="contained">
+                <ButtonLink to={`/users/${profile.id}/update`}>
+                  Update
+                </ButtonLink>
+                <Button onClick={handleOpenDeleteModal}>
+                  Delete
+                </Button>
+              </ButtonGroup>
+              <DeleteUserModal
+                open={openDeleteModal}
+                onClose={handleCloseDeleteModal}
+                onDelete={deleteProfile}
+              />
+            </Box>
+          )
+        }
+      </Stack>
+    </Container>
   );
 };
 

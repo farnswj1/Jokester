@@ -1,15 +1,10 @@
-import { FC, Fragment, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ButtonGroup, Button } from '@mui/material';
-import {
-  JokeInformation,
-  LoadingBar,
-  PageContainer,
-  ServerErrorMessage
-} from 'components';
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ButtonGroup, Button, Container, Stack, Box } from '@mui/material';
+import { ButtonLink, JokeInformation, LoadingBar, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { footerStyle, setTitle } from 'utils';
+import { setTitle } from 'utils';
 import { Joke } from 'types';
 import DeleteJokeModal from './DeleteJokeModal';
 
@@ -66,49 +61,51 @@ const JokeDetailPage: FC = () => {
   useEffect(getJoke, [id]);
 
   return (
-    <PageContainer>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        joke && (
-          <JokeInformation joke={joke} />
-        )
-      }
-      <ButtonGroup variant="contained" sx={footerStyle}>
-        <Button size="large">
-          <Link to="/">
-            Back
-          </Link>
-        </Button>
+    <Container>
+      <Stack spacing={3}>
         {
-          (joke && hasPermission) && (
-            <Fragment>
-              <Button size="large">
-                <Link to={`/jokes/${joke.id}/update`}>
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          joke && (
+            <JokeInformation joke={joke} />
+          )
+        }
+        <Box>
+          <ButtonGroup variant="contained">
+            <ButtonLink to="/">
+              Back
+            </ButtonLink>
+            {
+              (joke && hasPermission) && ([
+                <ButtonLink key={0} to={`/jokes/${joke.id}/update`}>
                   Update
-                </Link>
-              </Button>
-              <Button size="large" onClick={handleOpenDeleteModal}>
-                Delete
-              </Button>
+                </ButtonLink>,
+                <Button key={1} onClick={handleOpenDeleteModal}>
+                  Delete
+                </Button>
+              ])
+            }
+          </ButtonGroup>
+          {
+            (joke && hasPermission) && (
               <DeleteJokeModal
                 open={openDeleteModal}
                 onClose={handleCloseDeleteModal}
                 onDelete={deleteJoke}
               />
-            </Fragment>
-          )
-        }
-      </ButtonGroup>
-    </PageContainer>
+            )
+          }
+        </Box>
+      </Stack>
+    </Container>
   );
 };
 

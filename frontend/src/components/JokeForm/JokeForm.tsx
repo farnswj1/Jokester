@@ -1,7 +1,6 @@
 import { FC, FormEventHandler } from 'react';
-import { Box, Button, FormControl, TextField } from '@mui/material';
+import { Box, Button, Stack, TextField } from '@mui/material';
 import { Joke } from 'types';
-import { paddingStyle } from 'utils';
 
 interface JokeFormProps {
   onSubmit: FormEventHandler<HTMLFormElement>
@@ -14,36 +13,33 @@ const JokeForm: FC<JokeFormProps> = ({
   onSubmit,
   joke
 }) => (
-  <Box component="form" onSubmit={onSubmit}>
-    <FormControl fullWidth variant="outlined">
-      <TextField
-        id="title"
-        name="title"
-        label="Title"
-        sx={paddingStyle}
-        defaultValue={joke ? joke.title : undefined}
-        required
-      />
-      <TextField
-        id="body"
-        name="body"
-        label="Body"
-        sx={paddingStyle}
-        multiline
-        rows={10}
-        defaultValue={joke ? joke.body : undefined}
-        required
-      />
-    </FormControl>
-    <Button
-      variant="contained"
-      type="submit"
-      size="large"
-      disabled={isLoading}
-    >
-      {joke ? 'Save' : 'Submit'}
-    </Button>
-  </Box>
+  <Stack component="form" spacing={3} onSubmit={onSubmit}>
+    <TextField
+      id="title"
+      name="title"
+      label="Title"
+      variant="outlined"
+      defaultValue={joke ? joke.title : undefined}
+      fullWidth
+      required
+    />
+    <TextField
+      id="body"
+      name="body"
+      label="Body"
+      variant="outlined"
+      multiline
+      rows={10}
+      defaultValue={joke ? joke.body : undefined}
+      fullWidth
+      required
+    />
+    <Box>
+      <Button variant="contained" type="submit" disabled={isLoading}>
+        {joke ? 'Save' : 'Submit'}
+      </Button>
+    </Box>
+  </Stack>
 );
 
 export default JokeForm;

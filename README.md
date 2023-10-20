@@ -55,7 +55,7 @@ The email configurations can also be configured. For more information, see the D
 ### Frontend
 The ```frontend``` directory must also have a ```.env``` file with the following configurations:
 ```
-REACT_APP_API_URL=http://localhost
+VITE_API_URL=http://localhost
 ```
 The URL should be the endpoint of the backend server.
 

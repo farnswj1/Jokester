@@ -1,16 +1,23 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Box, Button, FormControl, Grid, TextField } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField
+} from '@mui/material';
+import {
+  ButtonLink,
   ErrorTypography,
   HeaderTypography,
   LoadingBar,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { paddingStyle, setTitle } from 'utils';
+import { setTitle } from 'utils';
 import { UserProfile } from 'types';
 
 const UpdateUserPage: FC = () => {
@@ -63,104 +70,102 @@ const UpdateUserPage: FC = () => {
   useEffect(getProfile, [id]);
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        Update User
-      </HeaderTypography>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        status === 400 && (
-          <ErrorTypography>
-            Please double check your inputs.
-          </ErrorTypography>
-        )
-      }
-      {
-        profile && (
-          <Box component="form" onSubmit={handleSubmit}>
-            <Grid container rowSpacing={2} columnSpacing={4}>
-              <Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth variant="outlined">
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Update User
+        </HeaderTypography>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          status === 400 && (
+            <ErrorTypography>
+              Please double check your inputs.
+            </ErrorTypography>
+          )
+        }
+        {
+          profile && (
+            <Box component="form" onSubmit={handleSubmit}>
+              <Grid container spacing={3} columnSpacing={4}>
+                <Grid item xs={12} md={6}>
                   <TextField
-                    id="username"
                     name="username"
                     label="Username"
-                    sx={paddingStyle}
+                    variant="outlined"
                     defaultValue={profile.username}
+                    fullWidth
                     required
                   />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth variant="outlined">
+                </Grid>
+                <Grid item xs={12} md={6}>
                   <TextField
-                    id="email"
                     name="email"
                     label="Email"
                     type="email"
-                    sx={paddingStyle}
+                    variant="outlined"
                     defaultValue={profile.email}
+                    fullWidth
                     required
                   />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth variant="outlined">
+                </Grid>
+                <Grid item xs={12} md={6}>
                   <TextField
-                    id="first_name"
                     name="first_name"
                     label="First Name"
-                    sx={paddingStyle}
+                    variant="outlined"
                     defaultValue={profile.first_name}
+                    fullWidth
                     required
                   />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={12} md={6}>
-                <FormControl fullWidth variant="outlined">
+                </Grid>
+                <Grid item xs={12} md={6}>
                   <TextField
-                    id="last_name"
                     name="last_name"
                     label="Last Name"
-                    sx={paddingStyle}
+                    variant="outlined"
                     defaultValue={profile.last_name}
+                    fullWidth
                     required
                   />
-                </FormControl>
+                </Grid>
               </Grid>
-            </Grid>
-            <Box display="flex" justifyContent="space-between">
-              <Button
-                variant="contained"
-                type="submit"
-                size="large"
-                disabled={isLoading}
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                marginTop={3}
               >
-                Save
-              </Button>
-              {
-                user?.id === id && (
-                  <Button variant="contained" size="large">
-                    <Link to={`/users/${id}/password/`}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  Save
+                </Button>
+                {
+                  user?.id === id && (
+                    <ButtonLink
+                      variant="contained"
+                      to={`/users/${id}/password/`}
+                    >
                       Change Password
-                    </Link>
-                  </Button>
-                )
-              }
+                    </ButtonLink>
+                  )
+                }
+              </Stack>
             </Box>
-          </Box>
-        )
-      }
-    </PageContainer>
+          )
+        }
+      </Stack>
+    </Container>
   );
 };
 

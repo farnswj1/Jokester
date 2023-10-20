@@ -1,15 +1,14 @@
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, ButtonGroup } from '@mui/material';
+import { Box, Button, ButtonGroup, Container, Stack } from '@mui/material';
 import {
+  ButtonLink,
   HeaderTypography,
   JokeInformation,
   LoadingBar,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
-import { footerStyle, setTitle } from 'utils';
+import { setTitle } from 'utils';
 import { Joke } from 'types';
 
 const RandomJokePage: FC = () => {
@@ -39,36 +38,38 @@ const RandomJokePage: FC = () => {
   useEffect(getRandomJoke, []);
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        Random Joke
-      </HeaderTypography>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        joke && (
-          <JokeInformation joke={joke} />
-        )
-      }
-      <ButtonGroup variant="contained" sx={footerStyle}>
-        <Button size="large">
-          <Link to="/">
-            Back
-          </Link>
-        </Button>
-        <Button size="large" onClick={getRandomJoke}>
-          Get another joke!
-        </Button>
-      </ButtonGroup>
-    </PageContainer>
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Random Joke
+        </HeaderTypography>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          joke && (
+            <JokeInformation joke={joke} />
+          )
+        }
+        <Box>
+          <ButtonGroup variant="contained">
+            <ButtonLink to="/">
+              Back
+            </ButtonLink>
+            <Button onClick={getRandomJoke}>
+              Get another joke!
+            </Button>
+          </ButtonGroup>
+        </Box>
+      </Stack>
+    </Container>
   );
 };
 

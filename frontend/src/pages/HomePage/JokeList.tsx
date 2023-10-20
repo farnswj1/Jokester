@@ -1,10 +1,10 @@
-import { FC, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { ButtonGroup, Button, Grid, Typography } from '@mui/material';
-import { footerStyle } from 'utils';
+import { FC } from 'react';
+import { ButtonGroup, Button, Grid, Typography, Box } from '@mui/material';
+import { ButtonLink } from 'components';
+import { BaseJoke } from 'types';
 
 interface JokeListProps {
-  jokes: any[]
+  jokes: BaseJoke[]
   previousPage: string | null
   nextPage: string | null
   changePage: CallableFunction
@@ -20,27 +20,30 @@ const JokeList: FC<JokeListProps> = ({
   const getNextPage = () => changePage(nextPage);
 
   return (
-    <Fragment>
+    <Box>
       {
         jokes.length === 0 ? (
           <Typography variant="h5">
             No joke met the search criteria.
           </Typography>
         ) : (
-          <Grid
-            container
-            justifyContent="center"
-            rowSpacing={2}
-            columnSpacing={4}
-          >
+          <Grid container spacing={3} justifyContent="center">
             {
               jokes.map(joke => (
-                <Grid item xs={12} sm={12} md={6} key={joke.id}>
-                  <Link to={`/jokes/${joke.id}`}>
-                    <Button variant="contained" fullWidth>
-                      {joke.title}
-                    </Button>
-                  </Link>
+                <Grid item xs={12} md={6} key={joke.id}>
+                  <ButtonLink
+                    variant="text"
+                    to={`/jokes/${joke.id}`}
+                    fullWidth
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: 'inline-block'
+                    }}
+                  >
+                    {joke.title}
+                  </ButtonLink>
                 </Grid>
               ))
             }
@@ -49,28 +52,19 @@ const JokeList: FC<JokeListProps> = ({
       }
       {
         (previousPage || nextPage) && (
-          <ButtonGroup
-            variant="contained"
-            sx={footerStyle}
-          >
-            <Button
-              size="large"
-              disabled={!previousPage}
-              onClick={getPreviousPage}
-            >
-              &laquo;
-            </Button>
-            <Button
-              size="large"
-              disabled={!nextPage}
-              onClick={getNextPage}
-            >
-              &raquo;
-            </Button>
-          </ButtonGroup>
+          <Box marginTop={3}>
+            <ButtonGroup variant="contained">
+              <Button disabled={!previousPage} onClick={getPreviousPage}>
+                &laquo;
+              </Button>
+              <Button disabled={!nextPage} onClick={getNextPage}>
+                &raquo;
+              </Button>
+            </ButtonGroup>
+          </Box>
         )
       }
-    </Fragment>
+    </Box>
   );
 };
 

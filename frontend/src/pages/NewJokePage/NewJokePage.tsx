@@ -1,10 +1,10 @@
 import { FC, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Stack } from '@mui/material';
 import {
   ErrorTypography,
   HeaderTypography,
   JokeForm,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
@@ -37,27 +37,29 @@ const NewJokePage: FC = () => {
   };
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        New Joke
-      </HeaderTypography>
-      {
-        (status && status === 400) && (
-          <ErrorTypography>
-            Please double check your inputs.
-          </ErrorTypography>
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      <JokeForm
-        isLoading={isLoading}
-        onSubmit={handleSubmit}
-      />
-    </PageContainer>
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          New Joke
+        </HeaderTypography>
+        {
+          (status && status === 400) && (
+            <ErrorTypography>
+              Please double check your inputs.
+            </ErrorTypography>
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        <JokeForm
+          isLoading={isLoading}
+          onSubmit={handleSubmit}
+        />
+      </Stack>
+    </Container>
   );
 };
 

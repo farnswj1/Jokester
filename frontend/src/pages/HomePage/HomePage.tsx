@@ -1,15 +1,14 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Button } from '@mui/material';
+import { Box, Container, Stack } from '@mui/material';
 import {
+  ButtonLink,
   HeaderTypography,
   LoadingBar,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
-import { setTitle, paddingStyle } from 'utils';
+import { setTitle } from 'utils';
 import { BaseJoke } from 'types';
 import SearchJokeForm from './SearchJokeForm';
 import JokeList from './JokeList';
@@ -59,43 +58,47 @@ const HomePage: FC = () => {
   };
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        Jokes API
-      </HeaderTypography>
-      <Box sx={paddingStyle}>
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Jokes API
+        </HeaderTypography>
         <SearchJokeForm onSubmit={handleSearchSubmit} />
-      </Box>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        user && (
-          <Link to="/jokes/new">
-            <Button variant="contained" sx={paddingStyle}>
-              Add New Joke
-            </Button>
-          </Link>
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        jokes && (
-          <JokeList
-            jokes={jokes}
-            previousPage={previousPage}
-            nextPage={nextPage}
-            changePage={getJokesList}
-          />
-        )
-      }
-    </PageContainer>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          user && (
+            <Box>
+              <ButtonLink
+                variant="contained"
+                color="primary"
+                to="/jokes/new"
+              >
+                Add New Joke
+              </ButtonLink>
+            </Box>
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          jokes && (
+            <JokeList
+              jokes={jokes}
+              previousPage={previousPage}
+              nextPage={nextPage}
+              changePage={getJokesList}
+            />
+          )
+        }
+      </Stack>
+    </Container>
   );
 };
 

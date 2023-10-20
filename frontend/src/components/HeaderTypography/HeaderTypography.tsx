@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
-import { headerStyle } from 'utils';
 
-const HeaderTypography: FC<TypographyProps> = (props) => (
-  <Typography variant="h2" align="center" sx={headerStyle} {...props}>
-    {props.children}
+const HeaderTypography: FC<TypographyProps> = ({ children, ...rest }) => (
+  <Typography variant="h3" {...rest}>
+    {children}
   </Typography>
 );
 

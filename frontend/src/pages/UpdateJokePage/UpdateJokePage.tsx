@@ -1,11 +1,11 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Container, Stack } from '@mui/material';
 import {
   ErrorTypography,
   HeaderTypography,
   JokeForm,
   LoadingBar,
-  PageContainer,
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
@@ -61,37 +61,39 @@ const UpdateJokePage: FC = () => {
   useEffect(getJoke, [id]);
 
   return (
-    <PageContainer>
-      <HeaderTypography>
-        Update Joke
-      </HeaderTypography>
-      {
-        isLoading && (
-          <LoadingBar />
-        )
-      }
-      {
-        (status && status >= 500) && (
-          <ServerErrorMessage />
-        )
-      }
-      {
-        status === 400 && (
-          <ErrorTypography>
-            Please double check your inputs.
-          </ErrorTypography>
-        )
-      }
-      {
-        joke && (
-          <JokeForm
-            isLoading={isLoading}
-            onSubmit={handleSubmit}
-            joke={joke}
-          />
-        )
-      }
-    </PageContainer>
+    <Container>
+      <Stack spacing={3}>
+        <HeaderTypography>
+          Update Joke
+        </HeaderTypography>
+        {
+          isLoading && (
+            <LoadingBar />
+          )
+        }
+        {
+          (status && status >= 500) && (
+            <ServerErrorMessage />
+          )
+        }
+        {
+          status === 400 && (
+            <ErrorTypography>
+              Please double check your inputs.
+            </ErrorTypography>
+          )
+        }
+        {
+          joke && (
+            <JokeForm
+              isLoading={isLoading}
+              onSubmit={handleSubmit}
+              joke={joke}
+            />
+          )
+        }
+      </Stack>
+    </Container>
   );
 };
 
