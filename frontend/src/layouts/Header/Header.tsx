@@ -1,11 +1,27 @@
-import { FC } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Stack, Container } from '@mui/material';
-import { ButtonLink } from 'components';
+import {
+  AppBar,
+  Box,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Toolbar,
+  Typography
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { ButtonLink, RouterLink } from 'components';
 import { useAuth } from 'hooks';
 
 const Header: FC = () => {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const { user, logout } = useAuth();
+  const openMenu = Boolean(anchorEl);
+
+  const handleOpenNavMenu = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
+  const handleCloseNavMenu = () => setAnchorEl(null);
 
   return (
     <AppBar component="header" position="sticky" enableColorOnDark>
@@ -19,7 +35,82 @@ const Header: FC = () => {
           <Typography component={Link} variant="h6" to="/">
             Jokester
           </Typography>
-          <Stack direction="row" spacing={1}>
+          <Box display={{ xs: 'flex', sm: 'none' }}>
+            <IconButton
+              size="large"
+              color="inherit"
+              aria-controls="navbar-content"
+              onClick={handleOpenNavMenu}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="navbar-content"
+              anchorEl={anchorEl}
+              open={openMenu}
+              onClose={handleCloseNavMenu}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+              keepMounted
+            >
+              <RouterLink to="/jokes/random" onClick={handleCloseNavMenu}>
+                <MenuItem>
+                  Random
+                </MenuItem>
+              </RouterLink>
+              <RouterLink to="/about" onClick={handleCloseNavMenu}>
+                <MenuItem>
+                  About
+                </MenuItem>
+              </RouterLink>
+              {
+                user ? ([
+                  <RouterLink
+                    key={0}
+                    to={`/users/${user.id}`}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <MenuItem>
+                      Profile
+                    </MenuItem>
+                  </RouterLink>,
+                  <RouterLink
+                    key={1}
+                    to="/"
+                    onClick={() => { logout(); handleCloseNavMenu(); }}
+                  >
+                    <MenuItem>
+                      Logout
+                    </MenuItem>
+                  </RouterLink>
+                ]) : ([
+                  <RouterLink
+                    key={0}
+                    to="/register"
+                    onClick={handleCloseNavMenu}
+                  >
+                    <MenuItem>
+                      Register
+                    </MenuItem>
+                  </RouterLink>,
+                  <RouterLink
+                    key={1}
+                    to="/login"
+                    onClick={handleCloseNavMenu}
+                  >
+                    <MenuItem>
+                      Login
+                    </MenuItem>
+                  </RouterLink>
+                ])
+              }
+            </Menu>
+          </Box>
+          <Stack
+            direction="row"
+            spacing={1}
+            display={{ xs: 'none', sm: 'flex' }}
+          >
             <ButtonLink color="inherit" to="/jokes/random">
               Random
             </ButtonLink>
