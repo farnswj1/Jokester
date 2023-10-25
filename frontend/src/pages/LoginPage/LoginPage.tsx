@@ -1,5 +1,5 @@
 import { FC, FormEvent, useState } from 'react';
-import { Box, Button, Container, Stack, TextField } from '@mui/material';
+import { Box, Button, Container, Paper, Stack, TextField } from '@mui/material';
 import { ErrorTypography, HeaderTypography, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
@@ -33,7 +33,7 @@ const LoginPage: FC = () => {
 
   return (
     <Container maxWidth="sm">
-      <Stack spacing={3}>
+      <Paper component={Stack} spacing={3} padding={2}>
         <HeaderTypography>
           Login
         </HeaderTypography>
@@ -71,7 +71,7 @@ const LoginPage: FC = () => {
             </Button>
           </Box>
         </Stack>
-      </Stack>
+      </Paper>
     </Container>
   );
 };

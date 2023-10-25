@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Grid,
+  Paper,
   Stack,
   TextField
 } from '@mui/material';
@@ -71,9 +72,9 @@ const RegisterUserPage: FC = () => {
 
   return (
     <Container>
-      <Stack spacing={3}>
+      <Paper component={Stack} spacing={3} padding={2}>
         <HeaderTypography>
-          Update Joke
+          Sign Up!
         </HeaderTypography>
         {
           isLoading && (
@@ -164,7 +165,7 @@ const RegisterUserPage: FC = () => {
             </Button>
           </Box>
         </Box>
-      </Stack>
+      </Paper>
     </Container>
   );
 };

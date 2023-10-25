@@ -1,6 +1,6 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Container, Stack } from '@mui/material';
+import { Container, Paper, Stack } from '@mui/material';
 import {
   ErrorTypography,
   HeaderTypography,
@@ -62,7 +62,7 @@ const UpdateJokePage: FC = () => {
 
   return (
     <Container>
-      <Stack spacing={3}>
+      <Paper component={Stack} spacing={3} padding={2}>
         <HeaderTypography>
           Update Joke
         </HeaderTypography>
@@ -92,7 +92,7 @@ const UpdateJokePage: FC = () => {
             />
           )
         }
-      </Stack>
+      </Paper>
     </Container>
   );
 };

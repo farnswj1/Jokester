@@ -1,5 +1,5 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Paper, Stack, Typography } from '@mui/material';
 import {
   ButtonLink,
   HeaderTypography,
@@ -64,20 +64,25 @@ const HomePage: FC = () => {
       </HeaderTypography>
       <Grid container spacing={3} direction={{ md: 'row-reverse' }}>
         <Grid item xs={12} md={6} marginBottom={3}>
-          <SearchJokeForm onSubmit={handleSearchSubmit} />
-          {
-            user && (
-              <Box marginTop={3}>
-                <ButtonLink
-                  variant="contained"
-                  color="primary"
-                  to="/jokes/new"
-                >
-                  Add New Joke
-                </ButtonLink>
-              </Box>
-            )
-          }
+          <Paper component={Stack} spacing={3} padding={2}>
+            <Typography variant="h5">
+              Search jokes
+            </Typography>
+            <SearchJokeForm onSubmit={handleSearchSubmit} />
+            {
+              user && (
+                <Box>
+                  <ButtonLink
+                    variant="contained"
+                    color="primary"
+                    to="/jokes/new"
+                  >
+                    Add New Joke
+                  </ButtonLink>
+                </Box>
+              )
+            }
+          </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
           {

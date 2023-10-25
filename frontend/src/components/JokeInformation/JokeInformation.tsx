@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Divider, Stack, Typography } from '@mui/material';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { RouterLink } from 'components';
 import { Joke } from 'types';
 
@@ -8,7 +8,7 @@ interface JokeInformationProps {
 }
 
 const JokeInformation: FC<JokeInformationProps> = ({ joke }) => (
-  <Stack spacing={3}>
+  <Paper component={Stack} spacing={3} padding={2}>
     <Typography variant="h5">
       {joke.title}
     </Typography>
@@ -32,7 +32,7 @@ const JokeInformation: FC<JokeInformationProps> = ({ joke }) => (
         )
       }
     </Typography>
-  </Stack>
+  </Paper>
 );
 
 export default JokeInformation;

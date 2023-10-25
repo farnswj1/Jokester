@@ -6,6 +6,7 @@ import {
   Checkbox,
   Container,
   FormControlLabel,
+  Paper,
   Stack,
   TextField
 } from '@mui/material';
@@ -80,7 +81,7 @@ const UpdatePasswordPage: FC = () => {
 
   return (
     <Container maxWidth="sm">
-      <Stack spacing={3}>
+      <Paper component={Stack} spacing={3} padding={2}>
         <HeaderTypography>
           Update Password
         </HeaderTypography>
@@ -143,7 +144,7 @@ const UpdatePasswordPage: FC = () => {
             </Stack>
           )
         }
-      </Stack>
+      </Paper>
     </Container>
   );
 };
