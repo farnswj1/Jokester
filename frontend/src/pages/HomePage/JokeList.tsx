@@ -1,6 +1,15 @@
 import { FC } from 'react';
-import { ButtonGroup, Button, Grid, Typography, Box } from '@mui/material';
-import { ButtonLink } from 'components';
+import {
+  Box,
+  ButtonGroup,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  Stack,
+  Typography
+} from '@mui/material';
+import { RouterLink } from 'components';
 import { BaseJoke } from 'types';
 
 interface JokeListProps {
@@ -27,27 +36,31 @@ const JokeList: FC<JokeListProps> = ({
             No joke met the search criteria.
           </Typography>
         ) : (
-          <Grid container spacing={3} justifyContent="center">
+          <Stack spacing={3}>
             {
               jokes.map(joke => (
-                <Grid item xs={12} md={6} key={joke.id}>
-                  <ButtonLink
-                    variant="text"
-                    to={`/jokes/${joke.id}`}
-                    fullWidth
-                    sx={{
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      display: 'inline-block'
-                    }}
-                  >
-                    {joke.title}
-                  </ButtonLink>
-                </Grid>
+                <Card key={joke.id}>
+                  <CardActionArea component={RouterLink} to={`/jokes/${joke.id}`}>
+                    <CardContent>
+                      <Typography
+                        variant="h5"
+                        gutterBottom
+                        display="block"
+                        whiteSpace="nowrap"
+                        overflow="hidden"
+                        textOverflow="ellipsis"
+                      >
+                        {joke.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        By: {joke.author.username}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
               ))
             }
-          </Grid>
+          </Stack>
         )
       }
       {

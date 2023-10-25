@@ -36,7 +36,7 @@ const JokeForm: FC<JokeFormProps> = ({
     />
     <Box>
       <Button variant="contained" type="submit" disabled={isLoading}>
-        {joke ? 'Save' : 'Submit'}
+        {isLoading ? 'Submitting...' : (joke ? 'Save' : 'Submit')}
       </Button>
     </Box>
   </Stack>

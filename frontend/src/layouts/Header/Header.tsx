@@ -53,67 +53,61 @@ const Header: FC = () => {
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               keepMounted
             >
-              <RouterLink
+              <MenuItem
+                component={RouterLink}
                 to="/jokes/random"
                 underline="none"
                 onClick={handleCloseNavMenu}
               >
-                <MenuItem>
-                  Random
-                </MenuItem>
-              </RouterLink>
-              <RouterLink
+                Random
+              </MenuItem>
+              <MenuItem
+                component={RouterLink}
                 to="/about"
                 underline="none"
                 onClick={handleCloseNavMenu}
               >
-                <MenuItem>
-                  About
-                </MenuItem>
-              </RouterLink>
+                About
+              </MenuItem>
               {
                 user ? ([
-                  <RouterLink
+                  <MenuItem
                     key={0}
+                    component={RouterLink}
                     to={`/users/${user.id}`}
                     underline="none"
                     onClick={handleCloseNavMenu}
                   >
-                    <MenuItem>
-                      Profile
-                    </MenuItem>
-                  </RouterLink>,
-                  <RouterLink
+                    Profile
+                  </MenuItem>,
+                  <MenuItem
                     key={1}
+                    component={RouterLink}
                     to="/"
                     underline="none"
                     onClick={() => { logout(); handleCloseNavMenu(); }}
                   >
-                    <MenuItem>
-                      Logout
-                    </MenuItem>
-                  </RouterLink>
+                    Logout
+                  </MenuItem>
                 ]) : ([
-                  <RouterLink
+                  <MenuItem
                     key={0}
+                    component={RouterLink}
                     to="/register"
                     underline="none"
                     onClick={handleCloseNavMenu}
                   >
-                    <MenuItem>
-                      Register
-                    </MenuItem>
-                  </RouterLink>,
-                  <RouterLink
+                    Register
+                  </MenuItem>,
+                  <MenuItem
                     key={1}
+                    component={RouterLink}
                     to="/login"
                     underline="none"
                     onClick={handleCloseNavMenu}
                   >
-                    <MenuItem>
-                      Login
-                    </MenuItem>
-                  </RouterLink>
+                    Login
+                  </MenuItem>
                 ])
               }
             </Menu>

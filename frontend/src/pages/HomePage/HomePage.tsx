@@ -1,5 +1,5 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { Box, Container, Stack } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import {
   ButtonLink,
   HeaderTypography,
@@ -59,45 +59,49 @@ const HomePage: FC = () => {
 
   return (
     <Container>
-      <Stack spacing={3}>
-        <HeaderTypography>
-          Jokester
-        </HeaderTypography>
-        <SearchJokeForm onSubmit={handleSearchSubmit} />
-        {
-          isLoading && (
-            <LoadingBar />
-          )
-        }
-        {
-          user && (
-            <Box>
-              <ButtonLink
-                variant="contained"
-                color="primary"
-                to="/jokes/new"
-              >
-                Add New Joke
-              </ButtonLink>
-            </Box>
-          )
-        }
-        {
-          (status && status >= 500) && (
-            <ServerErrorMessage />
-          )
-        }
-        {
-          jokes && (
-            <JokeList
-              jokes={jokes}
-              previousPage={previousPage}
-              nextPage={nextPage}
-              changePage={getJokesList}
-            />
-          )
-        }
-      </Stack>
+      <HeaderTypography marginBottom={3}>
+        Jokester
+      </HeaderTypography>
+      <Grid container spacing={3} direction={{ md: 'row-reverse' }}>
+        <Grid item xs={12} md={6} marginBottom={3}>
+          <SearchJokeForm onSubmit={handleSearchSubmit} />
+          {
+            user && (
+              <Box marginTop={3}>
+                <ButtonLink
+                  variant="contained"
+                  color="primary"
+                  to="/jokes/new"
+                >
+                  Add New Joke
+                </ButtonLink>
+              </Box>
+            )
+          }
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {
+            isLoading && (
+              <LoadingBar />
+            )
+          }
+          {
+            (status && status >= 500) && (
+              <ServerErrorMessage />
+            )
+          }
+          {
+            jokes && (
+              <JokeList
+                jokes={jokes}
+                previousPage={previousPage}
+                nextPage={nextPage}
+                changePage={getJokesList}
+              />
+            )
+          }
+        </Grid>
+      </Grid>
     </Container>
   );
 };
