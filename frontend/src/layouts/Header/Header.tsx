@@ -1,5 +1,4 @@
 import { FC, MouseEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -14,6 +13,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { ButtonLink, RouterLink } from 'components';
 import { useAuth } from 'hooks';
+import Logo from 'assets/images/logo.png';
 
 const Header: FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -30,11 +30,28 @@ const Header: FC = () => {
           component={Stack}
           direction="row"
           justifyContent="space-between"
+          alignItems="center"
           disableGutters
         >
-          <Typography component={Link} variant="h6" to="/">
-            Jokester
-          </Typography>
+          <Stack
+            component={RouterLink}
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            color="inherit"
+            underline="none"
+            to="/"
+          >
+            <Box
+              component="img"
+              src={Logo}
+              maxWidth={32}
+              maxHeight="auto"
+            />
+            <Typography variant="h6">
+              Jokester
+            </Typography>
+          </Stack>
           <Box display={{ xs: 'flex', sm: 'none' }}>
             <IconButton
               size="large"

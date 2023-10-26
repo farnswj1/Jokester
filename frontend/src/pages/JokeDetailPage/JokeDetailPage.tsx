@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ButtonGroup, Button, Container, Stack, Box } from '@mui/material';
+import { Button, Container, Stack } from '@mui/material';
 import { ButtonLink, JokeInformation, LoadingBar, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
@@ -78,32 +78,23 @@ const JokeDetailPage: FC = () => {
             <JokeInformation joke={joke} />
           )
         }
-        <Box>
-          <ButtonGroup variant="contained">
-            <ButtonLink to="/">
-              Back
-            </ButtonLink>
-            {
-              (joke && hasPermission) && ([
-                <ButtonLink key={0} to={`/jokes/${joke.id}/update`}>
-                  Update
-                </ButtonLink>,
-                <Button key={1} onClick={handleOpenDeleteModal}>
-                  Delete
-                </Button>
-              ])
-            }
-          </ButtonGroup>
-          {
-            (joke && hasPermission) && (
+        {
+          (joke && hasPermission) && (
+            <Stack direction="row" spacing={1}>
+              <ButtonLink variant="outlined" to={`/jokes/${joke.id}/update`}>
+                Update
+              </ButtonLink>
+              <Button variant="text" onClick={handleOpenDeleteModal}>
+                Delete
+              </Button>
               <DeleteJokeModal
                 open={openDeleteModal}
                 onClose={handleCloseDeleteModal}
                 onDelete={deleteJoke}
               />
-            )
-          }
-        </Box>
+            </Stack>
+          )
+        }
       </Stack>
     </Container>
   );

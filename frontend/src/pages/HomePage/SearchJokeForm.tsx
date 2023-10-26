@@ -17,7 +17,7 @@ const SearchJokeForm: FC<SearchJokeFormProps> = ({ onSubmit }) => (
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton type="submit">
+            <IconButton type="submit" color="primary">
               <SearchIcon />
             </IconButton>
           </InputAdornment>

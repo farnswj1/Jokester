@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { Box, Button, ButtonGroup, Container, Stack } from '@mui/material';
+import { Box, Button, Container, Stack } from '@mui/material';
 import {
-  ButtonLink,
   HeaderTypography,
   JokeInformation,
   LoadingBar,
@@ -59,14 +58,9 @@ const RandomJokePage: FC = () => {
           )
         }
         <Box>
-          <ButtonGroup variant="contained">
-            <ButtonLink to="/">
-              Back
-            </ButtonLink>
-            <Button onClick={getRandomJoke}>
-              Get another joke!
-            </Button>
-          </ButtonGroup>
+          <Button variant="contained" onClick={getRandomJoke}>
+            Get another joke!
+          </Button>
         </Box>
       </Stack>
     </Container>

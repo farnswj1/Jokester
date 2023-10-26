@@ -154,7 +154,7 @@ const UpdateUserPage: FC = () => {
                 {
                   user?.id === id && (
                     <ButtonLink
-                      variant="contained"
+                      variant="outlined"
                       to={`/users/${id}/password/`}
                     >
                       Change Password

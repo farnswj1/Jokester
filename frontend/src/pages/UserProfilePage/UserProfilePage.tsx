@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Button, ButtonGroup, Container, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import { ButtonLink, HeaderTypography, LoadingBar, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
@@ -93,21 +93,19 @@ const UserProfilePage: FC = () => {
         }
         {
           (profile && hasPermission) && (
-            <Box>
-              <ButtonGroup variant="contained">
-                <ButtonLink to={`/users/${profile.id}/update`}>
-                  Update
-                </ButtonLink>
-                <Button onClick={handleOpenDeleteModal}>
-                  Delete
-                </Button>
-              </ButtonGroup>
+            <Stack direction="row" spacing={1}>
+              <ButtonLink variant="outlined" to={`/users/${profile.id}/update`}>
+                Update
+              </ButtonLink>
+              <Button variant="text" onClick={handleOpenDeleteModal}>
+                Delete
+              </Button>
               <DeleteUserModal
                 open={openDeleteModal}
                 onClose={handleCloseDeleteModal}
                 onDelete={deleteProfile}
               />
-            </Box>
+            </Stack>
           )
         }
       </Stack>
