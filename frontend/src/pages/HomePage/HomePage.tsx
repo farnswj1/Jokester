@@ -74,7 +74,7 @@ const HomePage: FC = () => {
                 <Box>
                   <ButtonLink
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     to="/jokes/new"
                   >
                     Add New Joke

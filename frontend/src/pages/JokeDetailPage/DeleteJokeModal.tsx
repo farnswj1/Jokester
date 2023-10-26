@@ -29,7 +29,7 @@ const DeleteJokeModal: FC<DeleteJokeModalProps> = ({
       </DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button variant="outlined" onClick={onClose}>
+      <Button variant="outlined" color="secondary" onClick={onClose}>
         Cancel
       </Button>
       <Button variant="contained" color="error" onClick={onDelete}>

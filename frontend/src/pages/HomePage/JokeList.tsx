@@ -67,10 +67,18 @@ const JokeList: FC<JokeListProps> = ({
         (previousPage || nextPage) && (
           <Box marginTop={3}>
             <ButtonGroup variant="contained">
-              <Button disabled={!previousPage} onClick={getPreviousPage}>
+              <Button
+                color="secondary"
+                disabled={!previousPage}
+                onClick={getPreviousPage}
+              >
                 &laquo;
               </Button>
-              <Button disabled={!nextPage} onClick={getNextPage}>
+              <Button
+                color="secondary"
+                disabled={!nextPage}
+                onClick={getNextPage}
+              >
                 &raquo;
               </Button>
             </ButtonGroup>

@@ -94,10 +94,18 @@ const UserProfilePage: FC = () => {
         {
           (profile && hasPermission) && (
             <Stack direction="row" spacing={1}>
-              <ButtonLink variant="outlined" to={`/users/${profile.id}/update`}>
+              <ButtonLink
+                variant="outlined"
+                color="secondary"
+                to={`/users/${profile.id}/update`}
+              >
                 Update
               </ButtonLink>
-              <Button variant="text" onClick={handleOpenDeleteModal}>
+              <Button
+                variant="text"
+                color="secondary"
+                onClick={handleOpenDeleteModal}
+              >
                 Delete
               </Button>
               <DeleteUserModal

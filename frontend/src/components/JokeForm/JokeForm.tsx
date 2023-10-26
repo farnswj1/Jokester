@@ -19,6 +19,7 @@ const JokeForm: FC<JokeFormProps> = ({
       name="title"
       label="Title"
       variant="outlined"
+      color="secondary"
       defaultValue={joke ? joke.title : undefined}
       fullWidth
       required
@@ -28,6 +29,7 @@ const JokeForm: FC<JokeFormProps> = ({
       name="body"
       label="Body"
       variant="outlined"
+      color="secondary"
       multiline
       rows={10}
       defaultValue={joke ? joke.body : undefined}
@@ -35,7 +37,12 @@ const JokeForm: FC<JokeFormProps> = ({
       required
     />
     <Box>
-      <Button variant="contained" type="submit" disabled={isLoading}>
+      <Button
+        variant="contained"
+        color="secondary"
+        type="submit"
+        disabled={isLoading}
+      >
         {isLoading ? 'Submitting...' : (joke ? 'Save' : 'Submit')}
       </Button>
     </Box>

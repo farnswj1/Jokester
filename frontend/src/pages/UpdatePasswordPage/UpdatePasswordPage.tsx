@@ -109,6 +109,7 @@ const UpdatePasswordPage: FC = () => {
                 name="password"
                 label="Password"
                 variant="outlined"
+                color="secondary"
                 onChange={handleInputChange}
                 fullWidth
                 required
@@ -118,6 +119,7 @@ const UpdatePasswordPage: FC = () => {
                 label="Confirm Password"
                 type="password"
                 variant="outlined"
+                color="secondary"
                 onChange={handleInputChange}
                 fullWidth
                 required
@@ -127,6 +129,7 @@ const UpdatePasswordPage: FC = () => {
                 control={
                   <Checkbox
                     name="acknowledged"
+                    color="secondary"
                     onChange={handleInputChange}
                     required
                   />
@@ -135,6 +138,7 @@ const UpdatePasswordPage: FC = () => {
               <Box>
                 <Button
                   variant="contained"
+                  color="secondary"
                   type="submit"
                   disabled={isLoading || disableSubmit}
                 >

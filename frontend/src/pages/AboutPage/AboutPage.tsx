@@ -35,7 +35,7 @@ const AboutPage: FC = () => {
         </Typography>
         <Typography>
           If you want to check out more of my projects,
-          click <RouterLink to="https://github.com/farnswj1">here</RouterLink>.
+          click <RouterLink color="secondary" to="https://github.com/farnswj1">here</RouterLink>.
         </Typography>
       </Stack>
     </Container>

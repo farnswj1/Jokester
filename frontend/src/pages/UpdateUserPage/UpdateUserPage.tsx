@@ -102,6 +102,7 @@ const UpdateUserPage: FC = () => {
                     name="username"
                     label="Username"
                     variant="outlined"
+                    color="secondary"
                     defaultValue={profile.username}
                     fullWidth
                     required
@@ -113,6 +114,7 @@ const UpdateUserPage: FC = () => {
                     label="Email"
                     type="email"
                     variant="outlined"
+                    color="secondary"
                     defaultValue={profile.email}
                     fullWidth
                     required
@@ -123,6 +125,7 @@ const UpdateUserPage: FC = () => {
                     name="first_name"
                     label="First Name"
                     variant="outlined"
+                    color="secondary"
                     defaultValue={profile.first_name}
                     fullWidth
                     required
@@ -133,6 +136,7 @@ const UpdateUserPage: FC = () => {
                     name="last_name"
                     label="Last Name"
                     variant="outlined"
+                    color="secondary"
                     defaultValue={profile.last_name}
                     fullWidth
                     required
@@ -146,6 +150,7 @@ const UpdateUserPage: FC = () => {
               >
                 <Button
                   variant="contained"
+                  color="secondary"
                   type="submit"
                   disabled={isLoading}
                 >
@@ -155,6 +160,7 @@ const UpdateUserPage: FC = () => {
                   user?.id === id && (
                     <ButtonLink
                       variant="outlined"
+                      color="secondary"
                       to={`/users/${id}/password/`}
                     >
                       Change Password

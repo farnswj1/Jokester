@@ -24,7 +24,7 @@ const JokeInformation: FC<JokeInformationProps> = ({ joke }) => (
       {'This joke was created by '}
       {
         joke.author ? (
-          <RouterLink to={`/users/${joke.author.id}`}>
+          <RouterLink color="secondary" to={`/users/${joke.author.id}`}>
             {joke.author.username}
           </RouterLink>
         ) : (

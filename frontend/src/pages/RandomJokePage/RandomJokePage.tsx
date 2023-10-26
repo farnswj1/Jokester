@@ -58,7 +58,7 @@ const RandomJokePage: FC = () => {
           )
         }
         <Box>
-          <Button variant="contained" onClick={getRandomJoke}>
+          <Button variant="contained" color="secondary" onClick={getRandomJoke}>
             Get another joke!
           </Button>
         </Box>

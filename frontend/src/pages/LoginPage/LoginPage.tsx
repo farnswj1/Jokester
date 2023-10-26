@@ -54,6 +54,7 @@ const LoginPage: FC = () => {
             name="username"
             label="Username"
             variant="outlined"
+            color="secondary"
             fullWidth
             required
           />
@@ -62,11 +63,17 @@ const LoginPage: FC = () => {
             label="Password"
             type="password"
             variant="outlined"
+            color="secondary"
             fullWidth
             required
           />
           <Box>
-            <Button variant="contained" type="submit" disabled={isLoading}>
+            <Button
+              variant="contained"
+              color="secondary"
+              type="submit"
+              disabled={isLoading}
+            >
               Login
             </Button>
           </Box>

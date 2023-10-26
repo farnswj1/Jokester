@@ -81,10 +81,18 @@ const JokeDetailPage: FC = () => {
         {
           (joke && hasPermission) && (
             <Stack direction="row" spacing={1}>
-              <ButtonLink variant="outlined" to={`/jokes/${joke.id}/update`}>
+              <ButtonLink
+                variant="outlined"
+                color="secondary"
+                to={`/jokes/${joke.id}/update`}
+              >
                 Update
               </ButtonLink>
-              <Button variant="text" onClick={handleOpenDeleteModal}>
+              <Button
+                variant="text"
+                color="secondary"
+                onClick={handleOpenDeleteModal}
+              >
                 Delete
               </Button>
               <DeleteJokeModal

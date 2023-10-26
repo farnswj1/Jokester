@@ -100,6 +100,7 @@ const RegisterUserPage: FC = () => {
                 name="username"
                 label="Username"
                 variant="outlined"
+                color="secondary"
                 fullWidth
                 required
               />
@@ -110,6 +111,7 @@ const RegisterUserPage: FC = () => {
                 label="Email"
                 type="email"
                 variant="outlined"
+                color="secondary"
                 fullWidth
                 required
               />
@@ -119,6 +121,7 @@ const RegisterUserPage: FC = () => {
                 name="first_name"
                 label="First Name"
                 variant="outlined"
+                color="secondary"
                 fullWidth
                 required
               />
@@ -128,6 +131,7 @@ const RegisterUserPage: FC = () => {
                 name="last_name"
                 label="Last Name"
                 variant="outlined"
+                color="secondary"
                 fullWidth
                 required
               />
@@ -138,6 +142,7 @@ const RegisterUserPage: FC = () => {
                 label="Password"
                 type="password"
                 variant="outlined"
+                color="secondary"
                 onChange={handlePasswordChange}
                 fullWidth
                 required
@@ -149,6 +154,7 @@ const RegisterUserPage: FC = () => {
                 label="Confirm Password"
                 type="password"
                 variant="outlined"
+                color="secondary"
                 onChange={handlePasswordChange}
                 fullWidth
                 required
@@ -158,6 +164,7 @@ const RegisterUserPage: FC = () => {
           <Box marginTop={3}>
             <Button
               variant="contained"
+              color="secondary"
               type="submit"
               disabled={isLoading || disableSubmit}
             >
