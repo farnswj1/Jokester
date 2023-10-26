@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, LinearProgressProps } from '@mui/material';
 
-const LoadingBar: FC = () => (
-  <LinearProgress color="inherit" />
+const LoadingBar: FC<LinearProgressProps> = (props) => (
+  <LinearProgress color="secondary" {...props} />
 );
 
 export default LoadingBar;
