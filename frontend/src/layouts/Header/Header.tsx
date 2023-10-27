@@ -8,18 +8,26 @@ import {
   MenuItem,
   Stack,
   Toolbar,
-  Typography
+  Tooltip,
+  Typography,
+  useTheme
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { ButtonLink, RouterLink } from 'components';
-import { useAuth } from 'hooks';
+import { useAuth, usePaletteMode } from 'hooks';
 import Logo from 'assets/images/logo.png';
 
 const Header: FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const { user, logout } = useAuth();
+  const { palette } = useTheme();
+  const setPaletteMode = usePaletteMode();
+  const isDarkMode = palette.mode === 'dark';
   const openMenu = Boolean(anchorEl);
 
+  const handlePaletteMode = () => setPaletteMode(isDarkMode ? 'light' : 'dark');
   const handleOpenNavMenu = (event: MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
   const handleCloseNavMenu = () => setAnchorEl(null);
 
@@ -70,6 +78,9 @@ const Header: FC = () => {
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               keepMounted
             >
+              <MenuItem onClick={handlePaletteMode}>
+                {`${isDarkMode ? 'Light' : 'Dark'} Mode`}
+              </MenuItem>
               <MenuItem
                 component={RouterLink}
                 to="/jokes/random"
@@ -134,6 +145,14 @@ const Header: FC = () => {
             spacing={1}
             display={{ xs: 'none', sm: 'flex' }}
           >
+            <Tooltip
+              title={`Enable ${isDarkMode ? 'light' : 'dark'} mode.`}
+              arrow
+            >
+              <IconButton color="inherit" onClick={handlePaletteMode}>
+                {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
+            </Tooltip>
             <ButtonLink color="inherit" to="/jokes/random">
               Random
             </ButtonLink>
