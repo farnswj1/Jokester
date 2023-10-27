@@ -11,6 +11,7 @@ interface LikeButtonProps extends CheckboxProps {
 
 const LikeButton: FC<LikeButtonProps> = ({ joke, defaultChecked, ...rest }) => {
   const [checked, setChecked] = useState<boolean>(Boolean(defaultChecked));
+  const [count, setCount] = useState<number>(joke.total_likes);
 
   const handleClick = (event: ChangeEvent<HTMLInputElement>) => {
     const id = joke.id;
@@ -18,12 +19,15 @@ const LikeButton: FC<LikeButtonProps> = ({ joke, defaultChecked, ...rest }) => {
     const data = { id, liked_by };
 
     APIService.put(`/api/jokes/${id}/like/`, data)
-      .then(() => setChecked(liked_by));
+      .then(() => {
+        setChecked(liked_by);
+        setCount(count => count + (liked_by ? 1 : -1));
+      });
   };
 
   return (
     <FormControlLabel
-      label={joke.total_likes}
+      label={count}
       control={
         <Checkbox
           {...rest}

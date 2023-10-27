@@ -8,6 +8,6 @@ export interface BaseJoke {
 
 export interface Joke extends BaseJoke {
   body: string;
-  total_likes: string;
+  total_likes: number;
   liked_by?: boolean;
 }
