@@ -1,8 +1,18 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import SAFE_METHODS
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+    RetrieveUpdateDestroyAPIView,
+    UpdateAPIView
+)
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from jokes.serializers import JokeSerializer, AddJokeSerializer, JokeListSerializer
+from jokes.serializers import (
+    JokeSerializer,
+    AddJokeSerializer,
+    JokeListSerializer,
+    LikeJokeSerializer
+)
 from jokes.permissions import IsAuthor
 from jokes.filters import JokeFilterSet
 from jokes.models import Joke
@@ -34,6 +44,22 @@ class JokeDetailAPIView(RetrieveUpdateDestroyAPIView):
             permission_classes.append(IsAuthor())
 
         return permission_classes
+
+    def get(self, request, pk, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        user = self.request.user
+        liked_by = user.is_authenticated and user.liked.filter(pk=pk).exists()
+        response.data['liked_by'] = liked_by
+        return response
+
+
+class LikeJokeAPIView(UpdateAPIView):
+    queryset = Joke.objects.all()
+    serializer_class = LikeJokeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class RandomJokeAPIView(APIView):

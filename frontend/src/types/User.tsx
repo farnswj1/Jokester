@@ -16,18 +16,18 @@ export interface IUser extends TokenUser {
 }
 
 export interface BaseUser {
-  id: string
-  first_name: string
-  last_name: string
-  email: string
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
 }
 
 export interface UserProfile extends BaseUser {
-  username: string
-  date_joined: string
+  username: string;
+  date_joined: string;
 }
 
 export interface BaseUserName {
-  id: string
-  username: string
+  id: string;
+  username: string;
 }

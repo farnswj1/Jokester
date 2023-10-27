@@ -1,11 +1,13 @@
 import { BaseUserName } from './User';
 
 export interface BaseJoke {
-  id: string
-  title: string
-  author: BaseUserName
+  id: string;
+  title: string;
+  author: BaseUserName;
 }
 
 export interface Joke extends BaseJoke {
-  body: string
+  body: string;
+  total_likes: string;
+  liked_by?: boolean;
 }

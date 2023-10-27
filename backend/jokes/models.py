@@ -33,6 +33,14 @@ class Joke(models.Model):
         on_delete=models.SET_NULL,
         related_name='jokes'
     )
+    liked_by = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='liked'
+    )
+
+    @property
+    def total_likes(self):
+        return self.liked_by.count()
 
     def __str__(self):
         return f'{self.id}: {self.title}'
