@@ -46,7 +46,7 @@ class JokeDetailAPIView(RetrieveUpdateDestroyAPIView):
         return permission_classes
 
     def get(self, request, pk, *args, **kwargs):
-        response = super().get(request, *args, **kwargs)
+        response = super().get(request, pk, *args, **kwargs)
         user = self.request.user
         liked_by = user.is_authenticated and user.liked.filter(pk=pk).exists()
         response.data['liked_by'] = liked_by
