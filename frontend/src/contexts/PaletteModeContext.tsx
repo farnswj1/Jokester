@@ -1,8 +1,6 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 import { PaletteMode } from '@mui/material';
 
-type TogglePaletteMode = (mode: PaletteMode) => void;
-
-const PaletteModeContext = createContext<TogglePaletteMode>(() => {});
+const PaletteModeContext = createContext<Dispatch<SetStateAction<PaletteMode>>>(() => {});
 
 export default PaletteModeContext;
