@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Stack, Typography } from '@mui/material';
 import { ButtonLink, HeaderTypography, LoadingBar, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
-import { useAuth } from 'hooks';
+import { useAuth, useSnackbar } from 'hooks';
 import { parseISOToLocale, setTitle } from 'utils';
 import { UserProfile } from 'types';
 import DeleteUserModal from './DeleteUserModal';
@@ -15,6 +15,7 @@ const UserProfilePage: FC = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const { user, logout } = useAuth();
   const { id } = useParams();
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
   const hasPermission = (user?.id === id || user?.hasGroup('Administrators'));
   setTitle(profile ? profile.username : `User #${id}`);
@@ -50,8 +51,17 @@ const UserProfilePage: FC = () => {
         setStatus(status);
 
         if (user?.id === id) {
+          setSnackbar({
+            message: 'Your account was successfully deleted!',
+            color: 'success'
+          });
           logout();
+          navigate('/');
         } else {
+          setSnackbar({
+            message: 'The account was successfully deleted!',
+            color: 'success'
+          });
           navigate('/users');
         }
       })

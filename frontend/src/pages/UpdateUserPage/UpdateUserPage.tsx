@@ -17,7 +17,7 @@ import {
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
-import { useAuth } from 'hooks';
+import { useAuth, useSnackbar } from 'hooks';
 import { setTitle } from 'utils';
 import { UserProfile } from 'types';
 
@@ -27,6 +27,7 @@ const UpdateUserPage: FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const { user } = useAuth();
   const { id } = useParams();
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
   setTitle(`Update User #${id}`);
 
@@ -58,6 +59,10 @@ const UpdateUserPage: FC = () => {
     APIService.put(`/api/users/${id}/`, data)
       .then(({ status }) => {
         setStatus(status);
+        setSnackbar({
+          message: 'Your account was successfully updated!',
+          color: 'success'
+        });
         navigate(`/users/${id}`);
       })
       .catch(({ response }) => {

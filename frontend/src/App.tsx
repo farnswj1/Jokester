@@ -9,6 +9,7 @@ import {
 import { deepPurple } from '@mui/material/colors';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from 'auth';
+import { SnackbarProvider } from 'providers';
 import { PaletteModeContext } from 'contexts';
 import { Header, Footer } from 'layouts';
 import Routes from 'routes';
@@ -48,17 +49,19 @@ const App: FC = () => {
               bgcolor="background.default"
               color="text.primary"
             >
-              <Header />
-              <Box
-                component="main"
-                bgcolor="inherit"
-                color="inherit"
-                paddingY={5}
-                marginBottom="auto"
-              >
-                <Routes />
-              </Box>
-              <Footer />
+              <SnackbarProvider defaultProps={{ autoHideDuration: 5000 }}>
+                <Header />
+                <Box
+                  component="main"
+                  bgcolor="inherit"
+                  color="inherit"
+                  paddingY={5}
+                  marginBottom="auto"
+                >
+                  <Routes />
+                </Box>
+                <Footer />
+              </SnackbarProvider>
             </Box>
           </AuthProvider>
         </BrowserRouter>

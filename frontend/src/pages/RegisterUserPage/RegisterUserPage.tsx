@@ -16,12 +16,14 @@ import {
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
+import { useSnackbar } from 'hooks';
 import { setTitle } from 'utils';
 
 const RegisterUserPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<number | null>(null);
   const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
   setTitle('Register');
 
@@ -60,6 +62,10 @@ const RegisterUserPage: FC = () => {
     APIService.post('/api/users/register/', data)
       .then(({ status }) => {
         setStatus(status);
+        setSnackbar({
+          message: 'Your account was succesfully created!',
+          color: 'success'
+        });
         navigate('/');
       })
       .catch(({ response }) => {

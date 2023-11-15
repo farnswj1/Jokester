@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Stack } from '@mui/material';
 import { ButtonLink, JokeInformation, LoadingBar, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
-import { useAuth } from 'hooks';
+import { useAuth, useSnackbar } from 'hooks';
 import { setTitle } from 'utils';
 import { Joke } from 'types';
 import DeleteJokeModal from './DeleteJokeModal';
@@ -15,8 +15,9 @@ const JokeDetailPage: FC = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const { user } = useAuth();
   const { id } = useParams();
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
-  const hasPermission = user?.hasGroup('Administrators');
+  const hasPermission = user?.hasGroup('Administrators') || joke?.author.id === user?.id;
   setTitle(joke ? joke.title : `Joke #${id}`);
 
   const handleOpenDeleteModal = () => setOpenDeleteModal(true);
@@ -48,6 +49,10 @@ const JokeDetailPage: FC = () => {
     APIService.delete(`/api/jokes/${id}/`)
       .then(({ status }) => {
         setStatus(status);
+        setSnackbar({
+          message: 'Your joke was successfully deleted!',
+          color: 'success'
+        });
         navigate('/');
       })
       .catch(({ response }) => {

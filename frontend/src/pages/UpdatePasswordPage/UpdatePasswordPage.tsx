@@ -17,7 +17,7 @@ import {
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
-import { useAuth } from 'hooks';
+import { useAuth, useSnackbar } from 'hooks';
 import { setTitle } from 'utils';
 
 const UpdatePasswordPage: FC = () => {
@@ -26,6 +26,7 @@ const UpdatePasswordPage: FC = () => {
   const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
   const { user } = useAuth();
   const { id } = useParams();
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
   setTitle(`Update User #${id}`);
 
@@ -69,6 +70,10 @@ const UpdatePasswordPage: FC = () => {
     APIService.put(`/api/users/password/${id}/`, data)
       .then(({ status }) => {
         setStatus(status);
+        setSnackbar({
+          message: 'Your password was successfully updated!',
+          color: 'success'
+        });
         navigate(`/users/${id}`);
       })
       .catch(({ response }) => {

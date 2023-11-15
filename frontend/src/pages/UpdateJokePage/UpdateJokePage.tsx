@@ -9,6 +9,7 @@ import {
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
+import { useSnackbar } from 'hooks';
 import { setTitle } from 'utils';
 import { Joke } from 'types';
 
@@ -17,6 +18,7 @@ const UpdateJokePage: FC = () => {
   const [status, setStatus] = useState<number | null>(null);
   const [joke, setJoke] = useState<Joke | null>(null);
   const { id } = useParams();
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
   setTitle(`Update Joke #${id}`);
 
@@ -48,6 +50,10 @@ const UpdateJokePage: FC = () => {
     APIService.put(`/api/jokes/${id}/`, data)
       .then(({ status }) => {
         setStatus(status);
+        setSnackbar({
+          message: 'Your joke was successfully updated!',
+          color: 'success'
+        });
         navigate(`/jokes/${id}`);
       })
       .catch(({ response }) => {

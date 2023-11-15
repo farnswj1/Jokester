@@ -8,11 +8,13 @@ import {
   ServerErrorMessage
 } from 'components';
 import { APIService } from 'services';
+import { useSnackbar } from 'hooks';
 import { setTitle } from 'utils';
 
 const NewJokePage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<number | null>(null);
+  const setSnackbar = useSnackbar();
   const navigate = useNavigate();
   setTitle('New Joke');
 
@@ -26,6 +28,10 @@ const NewJokePage: FC = () => {
     APIService.post('/api/jokes/add/', data)
       .then(({ data, status }) => {
         setStatus(status);
+        setSnackbar({
+          message: 'Your joke was successfully created!',
+          color: 'success'
+        });
         navigate(`/jokes/${data.id}`);
       })
       .catch(({ response }) => {
