@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import {
   Box,
   createTheme,
+  CssBaseline,
   PaletteMode,
   useMediaQuery,
   ThemeProvider
@@ -40,29 +41,16 @@ const App: FC = () => {
   return (
     <PaletteModeContext.Provider value={setPaletteMode}>
       <ThemeProvider theme={theme}>
+        <CssBaseline enableColorScheme />
         <BrowserRouter>
           <AuthProvider>
-            <Box
-              display="flex"
-              flexDirection="column"
-              height="100%"
-              bgcolor="background.default"
-              color="text.primary"
-            >
-              <SnackbarProvider defaultProps={{ autoHideDuration: 5000 }}>
-                <Header />
-                <Box
-                  component="main"
-                  bgcolor="inherit"
-                  color="inherit"
-                  paddingY={5}
-                  marginBottom="auto"
-                >
-                  <Routes />
-                </Box>
-                <Footer />
-              </SnackbarProvider>
-            </Box>
+            <SnackbarProvider defaultProps={{ autoHideDuration: 5000 }}>
+              <Header />
+              <Box component="main" paddingY={5} marginBottom="auto">
+                <Routes />
+              </Box>
+              <Footer />
+            </SnackbarProvider>
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
