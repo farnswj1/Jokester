@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface ProtectedRouteProps {
-  children: JSX.Element,
-  test: CallableFunction,
-  redirect?: string
+  children: JSX.Element;
+  test: CallableFunction;
+  redirect?: string;
 }
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({
@@ -13,7 +13,8 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
   redirect = '/'
 }) => {
   const location = useLocation();
-  return test() ? children : <Navigate to={redirect} replace state={{ from: location }} />;
+  const result = test();
+  return result ? children : <Navigate to={redirect} replace state={{ from: location }} />;
 };
 
 export default ProtectedRoute;

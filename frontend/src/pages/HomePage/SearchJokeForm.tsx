@@ -3,7 +3,7 @@ import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchJokeFormProps {
-  onSubmit: FormEventHandler<HTMLFormElement>
+  onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
 const SearchJokeForm: FC<SearchJokeFormProps> = ({ onSubmit }) => (

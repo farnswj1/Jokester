@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TokenHandler } from 'auth';
+import { TokenHandler } from 'features';
 
 const LOGIN_URL = '/api/login/';
 const REFRESH_URL = '/api/refresh/';

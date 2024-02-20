@@ -5,7 +5,7 @@ import { useAuth } from 'hooks';
 import { Joke } from 'types';
 
 interface JokeInformationProps {
-  joke: Joke
+  joke: Joke;
 }
 
 const JokeInformation: FC<JokeInformationProps> = ({ joke }) => {

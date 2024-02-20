@@ -3,9 +3,9 @@ import { Box, Button, Stack, TextField } from '@mui/material';
 import { Joke } from 'types';
 
 interface JokeFormProps {
-  onSubmit: FormEventHandler<HTMLFormElement>
-  isLoading: boolean
-  joke?: Joke
+  onSubmit: FormEventHandler<HTMLFormElement>;
+  isLoading: boolean;
+  joke?: Joke;
 }
 
 const JokeForm: FC<JokeFormProps> = ({

@@ -1,18 +1,18 @@
 export interface TokenUser {
-  id: string
-  username: string
-  is_staff: boolean
-  token_type: string
-  exp: number
-  iat: number
-  jti: string
-  groups: string[]
+  id: string;
+  username: string;
+  is_staff: boolean;
+  token_type: string;
+  exp: number;
+  iat: number;
+  jti: string;
+  groups: string[];
 }
 
 export interface IUser extends TokenUser {
-  hasGroup(group: string): boolean
-  hasGroups(groups: string[]): boolean
-  hasAnyGroup(groups: string[]): boolean
+  hasGroup(group: string): boolean;
+  hasGroups(groups: string[]): boolean;
+  hasAnyGroup(groups: string[]): boolean;
 }
 
 export interface BaseUser {

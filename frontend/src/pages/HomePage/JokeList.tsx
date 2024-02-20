@@ -13,10 +13,10 @@ import { RouterLink } from 'components';
 import { BaseJoke } from 'types';
 
 interface JokeListProps {
-  jokes: BaseJoke[]
-  previousPage: string | null
-  nextPage: string | null
-  changePage: CallableFunction
+  jokes: BaseJoke[];
+  previousPage: string | null;
+  nextPage: string | null;
+  changePage: CallableFunction;
 }
 
 const JokeList: FC<JokeListProps> = ({

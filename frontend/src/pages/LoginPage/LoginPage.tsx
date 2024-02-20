@@ -1,14 +1,17 @@
 import { FC, FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Paper, Stack, TextField } from '@mui/material';
 import { ErrorTypography, HeaderTypography, ServerErrorMessage } from 'components';
 import { APIService } from 'services';
 import { useAuth } from 'hooks';
 import { setTitle } from 'utils';
 
+
 const LoginPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<number | null>(null);
   const { login } = useAuth();
+  const navigate = useNavigate();
   setTitle('Login');
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -22,6 +25,7 @@ const LoginPage: FC = () => {
       .then(({ status, data }) => {
         setStatus(status);
         login(data);
+        navigate('/');
       })
       .catch(({ response }) => {
         setStatus(response.status);

@@ -9,9 +9,9 @@ import {
 } from '@mui/material';
 
 interface DeleteJokeModalProps {
-  open: boolean
-  onClose: () => void
-  onDelete: () => void
+  open: boolean;
+  onClose: () => void;
+  onDelete: () => void;
 }
 
 const DeleteJokeModal: FC<DeleteJokeModalProps> = ({

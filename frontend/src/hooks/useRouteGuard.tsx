@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { TokenHandler } from 'auth';
+import { TokenHandler } from 'features';
 import { useAuth } from 'hooks';
 
 const useIsAuthenticated = () => {

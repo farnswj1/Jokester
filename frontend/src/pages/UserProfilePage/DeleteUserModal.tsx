@@ -9,9 +9,9 @@ import {
 } from '@mui/material';
 
 interface DeleteUserModalProps {
-  open: boolean
-  onClose: () => void
-  onDelete: () => void
+  open: boolean;
+  onClose: () => void;
+  onDelete: () => void;
 }
 
 const DeleteUserModal: FC<DeleteUserModalProps> = ({

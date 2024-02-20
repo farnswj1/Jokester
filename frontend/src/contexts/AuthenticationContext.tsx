@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { User } from 'auth';
+import { User } from 'features';
 
 interface AuthenticationContextProps {
-  user: User | null
-  login: CallableFunction
-  logout: CallableFunction
+  user: User | null;
+  login: CallableFunction;
+  logout: CallableFunction;
 }
 
 const defaultValues: AuthenticationContextProps = {

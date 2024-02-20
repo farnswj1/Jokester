@@ -1,23 +1,22 @@
-import { FC, PropsWithChildren } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { FC, PropsWithChildren, useMemo, useState } from 'react';
 import { AuthenticationContext } from 'contexts';
-import TokenHandler from './TokenHandler';
+import { TokenHandler } from 'features';
 import { Credentials } from 'types';
 
-const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+interface AuthProviderProps extends PropsWithChildren {}
 
-  const user = TokenHandler.getUser();
+const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+  const [credentials, setCredentials] = useState<Credentials | null>(TokenHandler.get());
+  const user = useMemo(() => TokenHandler.getUser(), [credentials]);
 
   const login = (credentials: Credentials) => {
     TokenHandler.set(credentials);
-    const path = location.state?.from?.pathname || '/';
-    navigate(path);
+    setCredentials(credentials);
   };
 
   const logout = () => {
     TokenHandler.delete();
+    setCredentials(null);
   };
 
   const values = {
