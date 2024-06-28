@@ -56,6 +56,11 @@ DB_PORT=5432
 
 RABBITMQ_URL=amqp://myuser:password@rabbitmq:5672/myvhost
 REDIS_URL=redis://redis:6379/0
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=example@gmail.com
+EMAIL_HOST_PASSWORD=password
 ```
 
 The database variables can be changed as desired. However, make sure to update the environment variables in ```docker-compose.yml``` as well.
