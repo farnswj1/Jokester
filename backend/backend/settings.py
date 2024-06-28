@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from distutils.util import strtobool
 import os
 
 
@@ -29,7 +28,7 @@ USE_X_FORWARDED_PORT = True
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = strtobool(os.getenv('DEBUG').lower())
+DEBUG = bool(os.getenv('DEBUG').lower() in ('true', 't', '1'))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split()
 CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -107,8 +106,10 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = os.getenv('REDIS_URL')
+CELERY_BROKER_URL = os.getenv('RABBITMQ_URL')
+CELERY_RESULT_BACKEND = os.getenv('REDIS_URL')
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
 # Password validation

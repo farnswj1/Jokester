@@ -12,6 +12,7 @@ The project uses the following:
 - Material-UI
 - Vite
 - PostgreSQL
+- RabbitMQ
 - Redis
 - Nginx
 - Certbot
@@ -26,6 +27,14 @@ The ```postgres``` directory must also have a ```.env``` file with the following
 POSTGRES_DB=jokester
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=password
+```
+
+### RabbitMQ
+The ```rabbitmq``` directory must also have a ```.env``` file with the following configurations:
+```
+RABBITMQ_DEFAULT_USER=myuser
+RABBITMQ_DEFAULT_PASS=password
+RABBITMQ_DEFAULT_VHOST=myvhost
 ```
 
 ### Backend
@@ -45,6 +54,7 @@ DB_USER=postgres
 DB_PASSWORD=password
 DB_PORT=5432
 
+RABBITMQ_URL=amqp://myuser:password@rabbitmq:5672/myvhost
 REDIS_URL=redis://redis:6379/0
 ```
 
@@ -66,6 +76,9 @@ To build, run ```docker compose build```
 
 ## Running
 To run the web app, run ```docker compose up -d```, then go to http://localhost using your web browser.
+
+## Setting Up RabbitMQ
+To ensure the client can connect to RabbitMQ, run `docker exec -it rabbitmq rabbitmqctl set_permissions -p myvhost myuser ".*" ".*" ".*"`
 
 ## Populating the Database
 This project provides data to use for the project. Populating the database should only be done once to avoid duplicate data. To do so, run ```docker exec -it backend python manage.py loaddata data.json```.

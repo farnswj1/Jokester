@@ -18,6 +18,16 @@ services:
       - redis_data:/data/:rw
     networks:
       - private
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.13
+    restart: always
+    env_file:
+      - ./rabbitmq/.env
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/:rw
+    networks:
+      - private
   backend:
     container_name: backend
     image: backend
@@ -76,6 +86,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  rabbitmq_data:
   backend_static:
   frontend_static:
   certbot_data:
